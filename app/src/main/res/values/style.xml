@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+<style name="T1">
+    <item name="android:textColor">@color/green</item>
+</style>
+    <style name="marginStyle">
+        <item name="android:layout_marginTop">10sp</item>
+        <item name="android:layout_marginLeft">13sp</item>
+        <item name="android:layout_marginRight">13sp</item>
+    </style>
+</resources>
