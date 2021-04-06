@@ -1,60 +1,49 @@
 package com.example.serverregister;
 
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
-import android.view.Window;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.TextView;
-import android.widget.Toast;
+import android.widget.LinearLayout;
 
-import com.google.android.material.textfield.TextInputEditText;
+import androidx.appcompat.app.AppCompatActivity;
 
-import java.io.InputStream;
-import java.io.Serializable;
-
-import retrofit2.Call;
-import retrofit2.Callback;
-import retrofit2.Response;
+import ui.registration.UiRegistration;
 
 public class MainActivity extends AppCompatActivity {
 
     EditText userfirstname,userlastname,userpatronymic;
     Button buttonFullName;
+    LinearLayout linearLayoutEditContent;
+    User userRequest;
+    Intent intent;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         getSupportActionBar().hide(); //скрыть tollbar
 
+        userRequest = new User();
+        intent= new Intent(this, RegisterActivity.class);
 
         userfirstname = findViewById(R.id.userfirstname);
         userlastname = findViewById(R.id.userlastname);
         userpatronymic=findViewById(R.id.userpatronymic);
         buttonFullName = findViewById(R.id.buttonRegister);
-        User userRequest = new User();
-        Intent intent = new Intent(this, RegisterActivity.class);
+        linearLayoutEditContent= findViewById(R.id.linearLayoutEditContent);
 
-        buttonFullName.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if(userfirstname.getText().length()==0 || userlastname.getText().length()==0){
-                    Toast.makeText(MainActivity.this, "Введите фамилию и имя!",Toast.LENGTH_SHORT).show();
-                } else{
-                    userRequest.setFirstname(userfirstname.getText().toString());
-                    userRequest.setLastname(userlastname.getText().toString());
-                    userRequest.setPatronymic(userpatronymic.getText().toString());
-                    intent.putExtra(User.class.getSimpleName(), userRequest);
+    }
+    public void sendNameUser (View view){
+        if (UiRegistration.checkOfNull(linearLayoutEditContent,MainActivity.this)){
+            userRequest.setFirstname(userfirstname.getText().toString());
+            userRequest.setLastname(userlastname.getText().toString());
+            userRequest.setPatronymic(userpatronymic.getText().toString());
+            intent.putExtra(User.class.getSimpleName(), userRequest);
+            startActivity(intent);
+        }
+    }
 
-                    startActivity(intent);
-                }
-
-            }
-        });
-}
 
     public void goAuthActivity(View view){
         Intent authIntent = new Intent(this, AuthenticationActivity.class);

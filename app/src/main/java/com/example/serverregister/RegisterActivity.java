@@ -1,25 +1,27 @@
 package com.example.serverregister;
 
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import okhttp3.OkHttpClient;
+import androidx.appcompat.app.AppCompatActivity;
+
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
+import ui.registration.UiRegistration;
 
 public class RegisterActivity extends AppCompatActivity {
     EditText useremail,userpassword;
     Button buttonRegister;
     TextView textviewHello;
     User userRequest;
+    LinearLayout linearLayoutEditContent;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -29,6 +31,7 @@ public class RegisterActivity extends AppCompatActivity {
         useremail = findViewById(R.id.useremail);
         userpassword = findViewById(R.id.userpassword);
         textviewHello = findViewById(R.id.textviewHello);
+        linearLayoutEditContent = findViewById(R.id.linearLayoutEditContent);
 
         Bundle userFullname = getIntent().getExtras();
         userRequest = (User) userFullname.getSerializable(User.class.getSimpleName());
@@ -38,9 +41,12 @@ public class RegisterActivity extends AppCompatActivity {
     }
 
     public void registrationUser(View view){
-        createСredentials(userRequest);
-        saveUser(userRequest);
-        goAuthActivity(view);
+        if (UiRegistration.checkOfNull(linearLayoutEditContent,RegisterActivity.this)){
+            createСredentials(userRequest);
+            saveUser(userRequest);
+            goAuthActivity(view);
+        }
+
         //TODO Добавить функцию отключения переключения "назад", чтобы нельзя было вернуться к кнопке регистрации
     }
 
@@ -73,5 +79,6 @@ public class RegisterActivity extends AppCompatActivity {
     public void goAuthActivity(View view){
         Intent authIntent = new Intent(this, AuthenticationActivity.class);
         startActivity(authIntent);
+        this.finish();
     }
 }

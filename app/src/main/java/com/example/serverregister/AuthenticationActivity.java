@@ -1,23 +1,26 @@
 package com.example.serverregister;
 
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import androidx.appcompat.app.AppCompatActivity;
 
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
+import ui.registration.UiRegistration;
 
 public class AuthenticationActivity extends AppCompatActivity {
     EditText useremail,userpassword;
     Button buttonAuth;
     TextView textviewHello;
+    LinearLayout linearLayoutEditContent;
     User userRequest = new User();
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -27,11 +30,14 @@ public class AuthenticationActivity extends AppCompatActivity {
         useremail = findViewById(R.id.useremail);
         userpassword = findViewById(R.id.userpassword);
         textviewHello = findViewById(R.id.textviewHello);
+        linearLayoutEditContent = findViewById(R.id.linearLayoutEditContent);
     }
 
     public void authenticationUser(View view){
-        createCredentials(userRequest);
-        sendCredentialsData(userRequest);
+        if (UiRegistration.checkOfNull(linearLayoutEditContent,AuthenticationActivity.this)) {
+            createCredentials(userRequest);
+            sendCredentialsData(userRequest);
+        }
     }
 
     public void createCredentials(User userRequest){

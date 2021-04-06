@@ -24,14 +24,7 @@
         android:fillViewport="true"
         android:overScrollMode="ifContentScrolls"
         >
-        <RelativeLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-
-            >
-
             <LinearLayout
-                android:id="@+id/linearLayout"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:background="@color/white"
@@ -55,7 +48,12 @@
                     android:gravity="center"
                     android:text="@string/signUp"
                     android:textSize="32sp" />
-
+                <LinearLayout
+                    android:id="@+id/linearLayoutEditContent"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@color/white"
+                    android:orientation="vertical">
                 <com.google.android.material.textfield.TextInputLayout
                     style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
                     android:layout_width="match_parent"
@@ -65,10 +63,12 @@
                     android:hint="@string/surname"
                     app:boxBackgroundColor="@color/white">
 
-                    <com.google.android.material.textfield.TextInputEditText
-                        android:id="@+id/userlastname"
+                    <EditText
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content"></com.google.android.material.textfield.TextInputEditText>
+                        android:layout_height="wrap_content"
+                        android:id="@+id/userlastname"
+                        android:inputType="textPersonName"/>
+
                 </com.google.android.material.textfield.TextInputLayout>
 
                 <com.google.android.material.textfield.TextInputLayout
@@ -80,12 +80,14 @@
                     android:hint="@string/lastname"
                     app:boxBackgroundColor="@color/white">
 
-                    <com.google.android.material.textfield.TextInputEditText
+                    <EditText
                         android:id="@+id/userfirstname"
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content"></com.google.android.material.textfield.TextInputEditText>
+                        android:layout_height="wrap_content"
+                        android:inputType="textPersonName"/>
                 </com.google.android.material.textfield.TextInputLayout>
-
+                </LinearLayout>
+                <!--userpatronymic выведен из проверки на null-->
                 <com.google.android.material.textfield.TextInputLayout
                     style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
                     android:layout_width="match_parent"
@@ -98,9 +100,9 @@
                     <com.google.android.material.textfield.TextInputEditText
                         android:id="@+id/userpatronymic"
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content"></com.google.android.material.textfield.TextInputEditText>
+                        android:layout_height="wrap_content"
+                        android:inputType="textPersonName"/>
                 </com.google.android.material.textfield.TextInputLayout>
-
                 <Button
                     android:id="@+id/buttonRegister"
                     android:layout_width="match_parent"
@@ -108,7 +110,8 @@
                     android:layout_marginHorizontal="13sp"
                     android:layout_marginBottom="10sp"
                     android:padding="15sp"
-                    android:text="@string/continueString" />
+                    android:text="@string/continueString"
+                    android:onClick="sendNameUser"/>
 
                 <TextView
                     android:layout_width="match_parent"
@@ -121,9 +124,6 @@
                     android:onClick="goAuthActivity"
                     />
             </LinearLayout>
-
-        </RelativeLayout>
-
     </ScrollView>
 
 
