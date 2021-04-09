@@ -11,4 +11,5 @@
     <color name="flamingo">#F718FF</color>
     <color name="red">#ff0000</color>
     <color name="link">#18AAFF</color>
+    <color name="toolbar">#DCDCDC</color>
 </resources>

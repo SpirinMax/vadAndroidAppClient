@@ -1,14 +1,17 @@
 package com.example.serverregister;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.LinearLayout;
+import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import entites.User;
 import ui.registration.UiRegistration;
 
 public class MainActivity extends AppCompatActivity {
@@ -18,11 +21,16 @@ public class MainActivity extends AppCompatActivity {
     LinearLayout linearLayoutEditContent;
     User userRequest;
     Intent intent;
+    TextView refUser;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         getSupportActionBar().hide(); //скрыть tollbar
+
+        SharedPreferencesUserInfo settingsUser = new SharedPreferencesUserInfo();
+//        SharedPreferences settings =  getSharedPreferences(settingsUser.getPrefFile(),MODE_PRIVATE);
+       SharedPreferences settings =  settingsUser.getSettings(MainActivity.this);
 
         userRequest = new User();
         intent= new Intent(this, RegisterActivity.class);
@@ -32,7 +40,9 @@ public class MainActivity extends AppCompatActivity {
         userpatronymic=findViewById(R.id.userpatronymic);
         buttonFullName = findViewById(R.id.buttonRegister);
         linearLayoutEditContent= findViewById(R.id.linearLayoutEditContent);
+        refUser = findViewById(R.id.refUser);
 
+        refUser.setText(settingsUser.getPrefName(settings));
     }
     public void sendNameUser (View view){
         if (UiRegistration.checkOfNull(linearLayoutEditContent,MainActivity.this)){

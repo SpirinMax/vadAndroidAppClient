@@ -1,6 +1,7 @@
 <resources>
     <string name="app_name">Тимур.ко</string>
     <string name="empty">j</string>
+    <style name="unknownInfo">Неизвестно</style>
     <string name="title_activity_register">RegisterActivity</string>
     <string name="surname">Фамилия</string>
     <string name="lastname">Имя</string>

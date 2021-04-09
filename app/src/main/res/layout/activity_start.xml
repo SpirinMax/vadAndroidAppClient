@@ -1,0 +1,111 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".StartActivity">
+
+    <com.google.android.material.appbar.AppBarLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:elevation="0dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+
+        app:layout_constraintEnd_toEndOf="parent">
+
+        <androidx.appcompat.widget.Toolbar
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/toolbar"
+            android:baselineAligned="false">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:baselineAligned="false"
+                android:divider="@color/black"
+                android:orientation="horizontal"
+                android:showDividers="middle"
+                android:layout_marginRight="15dp">
+
+                <RelativeLayout
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1">
+
+                    <ImageButton
+                        android:id="@+id/history"
+                        style="@style/TollbarIcon"
+                        android:src="@drawable/ic_history" />
+
+                    <TextView
+                        style="@style/ToolbarTextview"
+                        android:layout_below="@id/history"
+                        android:text="Успехи" />
+                </RelativeLayout>
+
+                <RelativeLayout
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1">
+
+                    <ImageButton
+                        android:id="@+id/listRequest"
+                        style="@style/TollbarIcon"
+                        android:src="@drawable/ic_listrequest" />
+
+                    <TextView
+                        style="@style/ToolbarTextview"
+                        android:layout_below="@id/listRequest"
+                        android:text="Заявки" />
+                </RelativeLayout>
+
+                <RelativeLayout
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1">
+
+                    <ImageButton
+                        android:id="@+id/requestHelp"
+                        style="@style/TollbarIcon"
+                        android:src="@drawable/ic_newrequsthelp" />
+
+                    <TextView
+                        style="@style/ToolbarTextview"
+                        android:layout_below="@id/requestHelp"
+                        android:text="Создать"
+                        android:textSize="13sp" />
+                </RelativeLayout>
+
+                <RelativeLayout
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1">
+
+                    <ImageButton
+                        android:id="@+id/profile"
+                        style="@style/TollbarIcon"
+                        android:src="@drawable/ic_profile" />
+
+                    <TextView
+                        style="@style/ToolbarTextview"
+                        android:layout_below="@id/profile"
+                        android:text="Профиль" />
+                </RelativeLayout>
+            </LinearLayout>
+            <!--<TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:gravity="center_horizontal"
+                        android:paddingBottom="25sp"
+                        android:text="Войти в существующий профиль"
+                        android:textColor="@color/link"
+                        android:textSize="16sp"
+
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        />-->
+        </androidx.appcompat.widget.Toolbar>
+    </com.google.android.material.appbar.AppBarLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>

@@ -3,25 +3,23 @@ package com.example.serverregister;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
-import android.widget.Button;
 import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import retrofit2.Call;
-import retrofit2.Callback;
-import retrofit2.Response;
+import entites.User;
+import service.UserService;
 import ui.registration.UiRegistration;
 
 public class RegisterActivity extends AppCompatActivity {
     EditText useremail,userpassword;
-    Button buttonRegister;
     TextView textviewHello;
     User userRequest;
     LinearLayout linearLayoutEditContent;
+    private UserService userService = new UserService();
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -43,37 +41,14 @@ public class RegisterActivity extends AppCompatActivity {
     public void registrationUser(View view){
         if (UiRegistration.checkOfNull(linearLayoutEditContent,RegisterActivity.this)){
             createСredentials(userRequest);
-            saveUser(userRequest);
+            userService.saveUser(userRequest,RegisterActivity.this);
             goAuthActivity(view);
         }
-
-        //TODO Добавить функцию отключения переключения "назад", чтобы нельзя было вернуться к кнопке регистрации
     }
 
     public void createСredentials(User userRequest){
         userRequest.setEmail(useremail.getText().toString());
         userRequest.setPassword(userpassword.getText().toString());
-    }
-
-    public void saveUser(User userRequest){
-        Call<User> userResponseCall = ApiClient.getUserService().saveUser(userRequest);
-        userResponseCall.enqueue(new Callback<User>() {
-            @Override
-            public void onResponse(Call<User> call, Response<User> response) {
-                if(response.isSuccessful()){
-                    Toast.makeText(RegisterActivity.this, "Запрос успешно отправлен!",Toast.LENGTH_SHORT).show();
-                    String idUser = String.valueOf(response.body().getId());
-                    textviewHello.setText(idUser);
-                } else{
-                    Toast.makeText(RegisterActivity.this,"Некорректный запрос!",Toast.LENGTH_SHORT).show();
-                }
-            }
-
-            @Override
-            public void onFailure(Call<User> call, Throwable t) {
-                Toast.makeText(RegisterActivity.this,"Некорректный запрос!" + t.getLocalizedMessage(),Toast.LENGTH_SHORT).show();
-            }
-        });
     }
 
     public void goAuthActivity(View view){

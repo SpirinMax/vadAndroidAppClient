@@ -112,7 +112,12 @@
                     android:padding="15sp"
                     android:text="@string/continueString"
                     android:onClick="sendNameUser"/>
-
+                <TextView
+                    android:id="@+id/refUser"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center_horizontal"
+                    android:paddingBottom="25sp"/>
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"

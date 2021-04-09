@@ -1,4 +1,6 @@
-package com.example.serverregister;
+package retrofit;
+
+import entites.User;
 
 import retrofit2.Call;
 import retrofit2.http.Body;

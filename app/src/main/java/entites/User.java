@@ -1,4 +1,4 @@
-package com.example.serverregister;
+package entites;
 
 import java.io.Serializable;
 

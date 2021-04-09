@@ -8,4 +8,23 @@
         <item name="android:layout_marginLeft">13sp</item>
         <item name="android:layout_marginRight">13sp</item>
     </style>
+    <style name="TollbarButton">
+        <item name="android:layout_centerHorizontal">true</item>
+        <item name="android:layout_width">60dp</item>
+        <item name="android:layout_height">50dp</item>
+        <item name="backgroundTint">@color/toolbar</item>
+    </style>
+    <style name="ToolbarTextview">
+        <item name="android:textSize">13sp</item>
+        <item name="android:layout_centerHorizontal">true</item>
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:textStyle">normal</item>
+        <item name="android:textColor">@color/black</item>
+    </style>
+    <style name="TollbarIcon">
+        <item name="android:layout_centerHorizontal">true</item>
+        <item name="android:layout_width">40dp</item>
+        <item name="android:layout_height">42dp</item>
+    </style>
 </resources>
