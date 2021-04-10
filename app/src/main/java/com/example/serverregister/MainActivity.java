@@ -1,7 +1,6 @@
 package com.example.serverregister;
 
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -13,6 +12,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import entites.User;
 import ui.registration.UiRegistration;
+import ui.transitions.TransitionActivity;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -22,6 +22,7 @@ public class MainActivity extends AppCompatActivity {
     User userRequest;
     Intent intent;
     TextView refUser;
+    TransitionActivity transitionActivity = new TransitionActivity();
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -29,8 +30,6 @@ public class MainActivity extends AppCompatActivity {
         getSupportActionBar().hide(); //скрыть tollbar
 
         SharedPreferencesUserInfo settingsUser = new SharedPreferencesUserInfo();
-//        SharedPreferences settings =  getSharedPreferences(settingsUser.getPrefFile(),MODE_PRIVATE);
-       SharedPreferences settings =  settingsUser.getSettings(MainActivity.this);
 
         userRequest = new User();
         intent= new Intent(this, RegisterActivity.class);
@@ -41,8 +40,8 @@ public class MainActivity extends AppCompatActivity {
         buttonFullName = findViewById(R.id.buttonRegister);
         linearLayoutEditContent= findViewById(R.id.linearLayoutEditContent);
         refUser = findViewById(R.id.refUser);
-
-        refUser.setText(settingsUser.getPrefName(settings));
+        getSupportFragmentManager();
+        refUser.setText(settingsUser.getSavedSettings(MainActivity.this).getFirstname());
     }
     public void sendNameUser (View view){
         if (UiRegistration.checkOfNull(linearLayoutEditContent,MainActivity.this)){
@@ -56,9 +55,13 @@ public class MainActivity extends AppCompatActivity {
 
 
     public void goAuthActivity(View view){
-        Intent authIntent = new Intent(this, AuthenticationActivity.class);
-        startActivity(authIntent);
+        transitionActivity.goInActivity(MainActivity.this,AuthenticationActivity.class);
+//        Intent authIntent = new Intent(this, AuthenticationActivity.class);
+//        startActivity(authIntent);
+
     }
+
+
 //    public UserRequest createRequest(){
 //        UserRequest userRequest = new UserRequest();
 //        userRequest.setUserfirstname(userfirstname.getText().toString());

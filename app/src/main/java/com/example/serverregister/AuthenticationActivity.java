@@ -21,6 +21,8 @@ public class AuthenticationActivity extends AppCompatActivity {
     LinearLayout linearLayoutEditContent;
     User userRequest = new User();
     UserService userService=new UserService();
+    private SharedPreferencesUserInfo sharedPreferencesUserInfo = new SharedPreferencesUserInfo();
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -35,13 +37,14 @@ public class AuthenticationActivity extends AppCompatActivity {
     public void authenticationUser(View view){
         if (UiRegistration.checkOfNull(linearLayoutEditContent,AuthenticationActivity.this)) {
             userService.createCredentials(userRequest,useremail.getText().toString(),userpassword.getText().toString());
-            userService.sendCredentialsData(userRequest,AuthenticationActivity.this);
+            userService.loginApp(userRequest,AuthenticationActivity.this);
         }
     }
 
     public void goRegisterActivity (View view) {
-        Intent registerIntent = new Intent(this, RegisterActivity.class);
+        Intent registerIntent = new Intent(this, MainActivity.class);
         startActivity(registerIntent);
     }
+
 }
 

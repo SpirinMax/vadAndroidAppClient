@@ -86,11 +86,13 @@
                     <ImageButton
                         android:id="@+id/profile"
                         style="@style/TollbarIcon"
-                        android:src="@drawable/ic_profile" />
+                        android:src="@drawable/ic_profile"
+                        android:onClick="goProfileActivity"/>
 
                     <TextView
                         style="@style/ToolbarTextview"
                         android:layout_below="@id/profile"
+                        android:onClick="goProfileActivity"
                         android:text="Профиль" />
                 </RelativeLayout>
             </LinearLayout>

@@ -3,10 +3,10 @@ package service;
 import android.content.Context;
 import android.widget.Toast;
 
-import retrofit.ApiClient;
 import com.example.serverregister.SharedPreferencesUserInfo;
-import entites.User;
 
+import entites.User;
+import retrofit.ApiClient;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -41,14 +41,22 @@ public class UserService {
         });
     }
 
-    public void sendCredentialsData(User userRequest, Context context){
-        Call<User> userResponseCall = ApiClient.getUserService().sendCredentialsData(userRequest);
+    public void loginApp(User userRequest, Context context){
+        Call<User> userResponseCall = ApiClient.getUserService().loginApp(userRequest);
         userResponseCall.enqueue(new Callback<User>() {
             @Override
             public void onResponse(Call<User> call, Response<User> response) {
                 if(response.isSuccessful()){
                     String name = String.valueOf(response.body().getFirstname())+ " "+String.valueOf(response.body().getLastname());
                     Toast.makeText(context, name+","+" поздравляем с успешной авторизацией",Toast.LENGTH_SHORT).show();
+                    sharedPreferencesUserInfo.setSettings(
+                            context,
+                            response.body().getLastname(),
+                            response.body().getFirstname(),
+                            response.body().getPatronymic(),
+                            response.body().getEmail(),
+                            response.body().getPassword()
+                    );
                 } else{
                     String name = String.valueOf(response.code());
                     Toast.makeText(context,"Неверный логин и пароль. Код ошибки: "+name,Toast.LENGTH_SHORT).show();

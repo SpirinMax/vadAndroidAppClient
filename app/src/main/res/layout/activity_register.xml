@@ -87,7 +87,7 @@
             android:layout_marginHorizontal="13sp"
             android:layout_marginBottom="10sp"
             android:padding="15sp"
-            android:text="Зарегистрироваться"
+            android:text="@string/signUpVerb"
             android:onClick="registrationUser"/>
     </LinearLayout>
     <TextView

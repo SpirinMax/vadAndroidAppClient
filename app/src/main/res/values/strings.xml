@@ -1,15 +1,24 @@
 <resources>
     <string name="app_name">Тимур.ко</string>
-    <string name="empty">j</string>
-    <style name="unknownInfo">Неизвестно</style>
     <string name="title_activity_register">RegisterActivity</string>
+
     <string name="surname">Фамилия</string>
     <string name="lastname">Имя</string>
     <string name="otchestvo">Отчество</string>
-    <string name="signIn">Войти в существующий аккаунт</string>
-    <string name="continueString">Продолжить</string>
-    <string name="signUp">Регистрация</string>
     <string name="email">Электронная почта</string>
     <string name="password">Пароль</string>
+
+    <string name="signIn">Войти в существующий аккаунт</string>
+    <string name="signInVerb">Войти</string>
     <string name="auth">Авторизоваться</string>
+    <string name="needAuth">Необходимо зайти в профиль</string>
+
+    <string name="signUp">Регистрация</string>
+    <string name="signUpVerb">Зарегистрироваться</string>
+
+    <string name="continueString">Продолжить</string>
+    <string name="cancel">Отмена</string>
+    <string name="dialogCancel">Для закрытия окна нажмите ОТМЕНА</string>
+    <string name="empty">""</string>
+    <style name="unknownInfo">Неизвестно</style>
 </resources>

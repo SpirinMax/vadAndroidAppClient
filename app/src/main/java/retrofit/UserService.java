@@ -11,5 +11,5 @@ public interface UserService {
     Call<User> saveUser(@Body User userRequest);
 
     @POST("AuthenticationServlet")
-    Call<User> sendCredentialsData(@Body User userRequest);
+    Call<User> loginApp(@Body User userRequest);
 }
