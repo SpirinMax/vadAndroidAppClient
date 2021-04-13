@@ -8,25 +8,26 @@ import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
-import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.FragmentManager;
 
 import entites.User;
 import service.UserService;
 import ui.registration.UiRegistration;
 
-public class AuthenticationActivity extends AppCompatActivity {
+public class AuthenticationActivity extends BehaviorActivity {
     EditText useremail,userpassword;
     Button buttonAuth;
     TextView textviewHello;
     LinearLayout linearLayoutEditContent;
     User userRequest = new User();
     UserService userService=new UserService();
-    private SharedPreferencesUserInfo sharedPreferencesUserInfo = new SharedPreferencesUserInfo();
-
+    FragmentManager fragmentManager;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_authentication);
+
+        fragmentManager = getSupportFragmentManager();
 
         useremail = findViewById(R.id.useremail);
         userpassword = findViewById(R.id.userpassword);
@@ -37,7 +38,7 @@ public class AuthenticationActivity extends AppCompatActivity {
     public void authenticationUser(View view){
         if (UiRegistration.checkOfNull(linearLayoutEditContent,AuthenticationActivity.this)) {
             userService.createCredentials(userRequest,useremail.getText().toString(),userpassword.getText().toString());
-            userService.loginApp(userRequest,AuthenticationActivity.this);
+            userService.loginApp(userRequest,AuthenticationActivity.this,fragmentManager);
         }
     }
 

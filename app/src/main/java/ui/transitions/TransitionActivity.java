@@ -22,8 +22,7 @@ public class TransitionActivity {
 
    public void goActivityAfterCheck (Context sourceActivity,Class<?> finishActivity, FragmentManager activityFragmentManager){
        if (sharedPreferencesUserInfo.checkPresenceSettings(sourceActivity)){
-           Intent intent = new Intent(sourceActivity, finishActivity);
-           sourceActivity.startActivity(intent);
+           goInActivity(sourceActivity,finishActivity);
        } else {
            registerDialogFragment.show(activityFragmentManager,"needRegister");
        }

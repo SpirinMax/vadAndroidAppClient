@@ -3,18 +3,23 @@ package service;
 import android.content.Context;
 import android.widget.Toast;
 
+import androidx.fragment.app.FragmentManager;
+
 import com.example.serverregister.SharedPreferencesUserInfo;
 
 import entites.User;
 import retrofit.ApiClient;
+import retrofit.ServerError;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class UserService {
+public class UserService  {
     private SharedPreferencesUserInfo sharedPreferencesUserInfo = new SharedPreferencesUserInfo();
+    private ServerError serverError = new ServerError();
 
-    public void saveUser(User userRequest, Context context) {
+
+    public void saveUser(User userRequest, Context context,FragmentManager fragmentManager) {
         Call<User> userResponseCall = ApiClient.getUserService().saveUser(userRequest);
         userResponseCall.enqueue(new Callback<User>() {
             @Override
@@ -36,14 +41,14 @@ public class UserService {
 
             @Override
             public void onFailure(Call<User> call, Throwable t) {
-                Toast.makeText(context, "Некорректный запрос!" + t.getLocalizedMessage(), Toast.LENGTH_SHORT).show();
+                serverError.DisplayDialogLossConnection(context,fragmentManager);
             }
         });
     }
 
-    public void loginApp(User userRequest, Context context){
+    public void loginApp(User userRequest, Context context, FragmentManager fragmentManager) {
         Call<User> userResponseCall = ApiClient.getUserService().loginApp(userRequest);
-        userResponseCall.enqueue(new Callback<User>() {
+        userResponseCall.enqueue(new Callback<User>()  {
             @Override
             public void onResponse(Call<User> call, Response<User> response) {
                 if(response.isSuccessful()){
@@ -57,7 +62,7 @@ public class UserService {
                             response.body().getEmail(),
                             response.body().getPassword()
                     );
-                } else{
+                } else {
                     String name = String.valueOf(response.code());
                     Toast.makeText(context,"Неверный логин и пароль. Код ошибки: "+name,Toast.LENGTH_SHORT).show();
                 }
@@ -65,7 +70,7 @@ public class UserService {
 
             @Override
             public void onFailure(Call<User> call, Throwable t) {
-                Toast.makeText(context,"Некорректный запрос!" + t.getLocalizedMessage(),Toast.LENGTH_SHORT).show();
+                serverError.DisplayDialogLossConnection(context,fragmentManager);
             }
         });
     }

@@ -1,25 +1,23 @@
 package com.example.serverregister;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
-import androidx.appcompat.app.AppCompatActivity;
-
 import entites.User;
 import service.UserService;
 import ui.registration.UiRegistration;
+import ui.transitions.TransitionActivity;
 
-public class RegisterActivity extends AppCompatActivity {
+public class RegisterActivity extends BehaviorActivity {
     EditText useremail,userpassword;
     TextView textviewHello;
     User userRequest;
     LinearLayout linearLayoutEditContent;
     private UserService userService = new UserService();
-
+    TransitionActivity transitionActivity = new TransitionActivity();
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -40,20 +38,15 @@ public class RegisterActivity extends AppCompatActivity {
 
     public void registrationUser(View view){
         if (UiRegistration.checkOfNull(linearLayoutEditContent,RegisterActivity.this)){
-            createСredentials(userRequest);
-            userService.saveUser(userRequest,RegisterActivity.this);
-            goAuthActivity(view);
+            userService.createCredentials(userRequest,useremail.getText().toString(),userpassword.getText().toString());
+            try {
+                userService.saveUser(userRequest,RegisterActivity.this,getSupportFragmentManager());
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+            transitionActivity.goInActivity(this,AuthenticationActivity.class);
+            this.finish();
         }
     }
 
-    public void createСredentials(User userRequest){
-        userRequest.setEmail(useremail.getText().toString());
-        userRequest.setPassword(userpassword.getText().toString());
-    }
-
-    public void goAuthActivity(View view){
-        Intent authIntent = new Intent(this, AuthenticationActivity.class);
-        startActivity(authIntent);
-        this.finish();
-    }
 }
