@@ -10,11 +10,9 @@ import androidx.annotation.NonNull;
 import androidx.fragment.app.DialogFragment;
 
 import com.example.serverregister.R;
-import com.example.serverregister.BehaviorActivity;
 
 public class DialogLosingConnection extends DialogFragment {
-//    private ErrorHandlingBehavior action;
-    private BehaviorActivity action;
+    private RefreshInActivity action;
     @NonNull
     public Dialog onCreateDialog(Bundle savedInstanceState) {
         AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
@@ -26,20 +24,13 @@ public class DialogLosingConnection extends DialogFragment {
                         action.refreshActivity();
                     }
                 }).
-                setNeutralButton(R.string.exitApp, new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-                        action.exitTheApp();
-                    }
-                }).
                 create();
     }
 
     @Override
     public void onAttach(@NonNull Context context) {
         super.onAttach(context);
-//        action = (ErrorHandlingBehavior) context;
-        action = (BehaviorActivity) context;
+        action = (RefreshInActivity) context;
     }
 
 }

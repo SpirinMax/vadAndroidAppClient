@@ -12,7 +12,9 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.ServerRegister"
         android:usesCleartextTraffic="true">
-        <activity android:name=".BehaviorActivity"></activity>
+        <activity android:name=".Test"></activity>
+        <activity android:name=".ProfileActivity" />
+        <activity android:name=".BehaviorActivity" />
         <activity android:name=".StartActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -27,7 +29,7 @@
             android:resource="@xml/network_security_config" />
 
         <activity android:name=".RegisterActivity" />
-        <activity android:name=".MainActivity"></activity>
+        <activity android:name=".MainActivity" />
     </application>
 
 </manifest>

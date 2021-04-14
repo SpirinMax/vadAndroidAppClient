@@ -1,0 +1,138 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".ProfileActivity">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        android:layout_margin="20dp"
+        >
+        <RelativeLayout
+            android:id="@+id/fioPhoto"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <androidx.cardview.widget.CardView
+                android:id="@+id/cardViewPhoto"
+                android:layout_width="75dp"
+                android:layout_height="75dp"
+                app:cardCornerRadius="80dp"
+                android:elevation="10dp">
+                <ImageView
+                    android:layout_width="75dp"
+                    android:layout_height="75dp"
+                    android:adjustViewBounds="true"
+                    android:background="@color/green"
+                    android:scaleType="centerCrop"
+                    android:src="@drawable/photo" />
+
+            </androidx.cardview.widget.CardView>
+            <RelativeLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:layout_marginLeft="25dp"
+                android:layout_toEndOf="@+id/cardViewPhoto"
+                android:layout_centerVertical="true">
+                <TextView
+                    android:textSize="18sp"
+                    android:id="@+id/surnameName"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/black"
+                    android:text="Спирин Максим"/>
+                <TextView
+                    android:textSize="18sp"
+                    android:textColor="@color/black"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/surnameName"
+                    android:layout_centerHorizontal="true"
+                    android:text="Валерьевич"/>
+            </RelativeLayout>
+        </RelativeLayout>
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_below="@+id/fioPhoto">
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1">
+                <ImageView
+                    android:id="@+id/iconlabelCountHelp"
+                    android:layout_width="50dp"
+                    android:layout_height="50dp"
+                    android:src="@drawable/ic_heath" />
+                <TextView
+                    android:id="@+id/labelCountHelp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_toEndOf="@+id/iconlabelCountHelp"
+                    android:layout_centerVertical="true"
+                    android:textSize="16sp"
+                    android:textColor="@color/black"
+                    android:layout_marginRight="6dp"
+                    android:text="Помощь:"/>
+                <TextView
+                    android:layout_toEndOf="@+id/labelCountHelp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:textSize="16sp"
+                    android:textColor="@color/black"
+                    android:text="2456"/>
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1.2"
+                >
+                <ImageView
+                    android:id="@+id/iconlabelRating"
+                    android:layout_width="33dp"
+                    android:layout_height="33dp"
+                    android:layout_marginVertical="8.5dp"
+                    android:src="@drawable/ic_color_rating" />
+                <TextView
+                    android:id="@+id/labelRating"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textSize="16sp"
+                    android:layout_centerVertical="true"
+                    android:layout_toEndOf="@id/iconlabelRating"
+                    android:textColor="@color/black"
+                    android:layout_marginRight="6dp"
+                    android:text="Рейтинг:"/>
+                <TextView
+                    android:layout_toEndOf="@+id/labelRating"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textSize="16sp"
+                    android:layout_centerVertical="true"
+                    android:textColor="@color/black"
+                    android:text="2456"/>
+            </RelativeLayout>
+
+        </LinearLayout>
+
+
+    </RelativeLayout>
+
+    <include
+        layout="@layout/toolbar_layout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent" />
+</androidx.constraintlayout.widget.ConstraintLayout>

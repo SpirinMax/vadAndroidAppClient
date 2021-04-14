@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android" android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+    <com.google.android.material.appbar.AppBarLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <androidx.appcompat.widget.Toolbar
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/toolbar"
+            android:baselineAligned="false">
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:baselineAligned="false"
+                android:divider="@color/black"
+                android:orientation="horizontal"
+                android:showDividers="middle"
+                android:layout_marginRight="15dp">
+
+                <RelativeLayout
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1">
+
+                    <ImageButton
+                        android:id="@+id/history"
+                        style="@style/TollbarIcon"
+                        android:src="@drawable/ic_history" />
+
+                    <TextView
+                        style="@style/ToolbarTextview"
+                        android:layout_below="@id/history"
+                        android:text="Успехи" />
+                </RelativeLayout>
+
+                <RelativeLayout
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1">
+
+                    <ImageButton
+                        android:id="@+id/listRequest"
+                        style="@style/TollbarIcon"
+                        android:src="@drawable/ic_listrequest" />
+
+                    <TextView
+                        style="@style/ToolbarTextview"
+                        android:layout_below="@id/listRequest"
+                        android:text="Заявки" />
+                </RelativeLayout>
+
+                <RelativeLayout
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1">
+
+                    <ImageButton
+                        android:id="@+id/requestHelp"
+                        style="@style/TollbarIcon"
+                        android:src="@drawable/ic_newrequsthelp" />
+
+                    <TextView
+                        style="@style/ToolbarTextview"
+                        android:layout_below="@id/requestHelp"
+                        android:text="Создать"
+                        android:textSize="13sp" />
+                </RelativeLayout>
+
+                <RelativeLayout
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:id="@+id/profileButton">
+
+                    <ImageButton
+                        android:id="@+id/profile"
+                        style="@style/TollbarIcon"
+                        android:src="@drawable/ic_profile"
+                        android:onClick="goProfileActivity"/>
+
+                    <TextView
+                        android:id="@+id/profileTextview"
+                        style="@style/ToolbarTextview"
+                        android:layout_below="@id/profile"
+                        android:onClick="goProfileActivity"
+                        android:text="Профиль" />
+                </RelativeLayout>
+            </LinearLayout>
+        </androidx.appcompat.widget.Toolbar>
+    </com.google.android.material.appbar.AppBarLayout>
+
+</RelativeLayout>
