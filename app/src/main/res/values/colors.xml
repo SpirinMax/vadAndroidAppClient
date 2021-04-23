@@ -13,4 +13,6 @@
     <color name="link">#18AAFF</color>
     <color name="toolbar">#DCDCDC</color>
     <color name="activeIcon">#C7D0CC</color>
+    <color name="editButtonInProfile">#f6f6c2</color>
+    <color name="greyBackground">#f2f2f2</color>
 </resources>

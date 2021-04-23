@@ -5,50 +5,58 @@ import android.content.Intent;
 
 import androidx.fragment.app.FragmentManager;
 
+import org.jetbrains.annotations.NotNull;
+
 import ui.registration.RegisterDialogFragment;
 
 public class BehaviorActivity {
+    private Context context;
+    private FragmentManager fragmentManager;
     private SharedPreferencesUserInfo sharedPreferencesUserInfo = new SharedPreferencesUserInfo();
     private RegisterDialogFragment registerDialogFragment = new RegisterDialogFragment();
 
-    private Context context;
-    private FragmentManager fragmentManager;
 
-    public void identifyContext(Context context) {
+    public BehaviorActivity(Context context, FragmentManager fragmentManager){
         this.context = context;
-    }
-
-    public Context receiveContext(){
-        return context;
-    }
-
-    public void identifyFragmentManager (FragmentManager fragmentManager){
         this.fragmentManager = fragmentManager;
     }
 
-    public FragmentManager receiveFragmentManager(){
-        return fragmentManager;
-    }
 
     public void goInRegisterActivity(){
         goInActivity(MainActivity.class);
     }
 
     public void goInActivity(Class<?> finishActivity){
-        Context context = receiveContext();
         Intent intent = new Intent(context, finishActivity);
         context.startActivity(intent);
     }
 
     public void goActivityAfterCheck (Class<?> finishActivity){
-        Context context = receiveContext();
-        FragmentManager fragmentManager = receiveFragmentManager();
         if (sharedPreferencesUserInfo.checkPresenceSettings(context)){
             goInActivity(finishActivity);
         } else {
-            registerDialogFragment.show(receiveFragmentManager(),"needRegister");
+            displayRegisterDialog();
         }
     }
+
+    public void displayRegisterDialog(){
+        registerDialogFragment.show(fragmentManager,"needRegister");
+    }
+
+    public void receiveDataInActivity (@NotNull Intent intent, String nameClass, java.io.Serializable dataClass){
+        intent.putExtra(nameClass,dataClass);
+        context.startActivity(intent);
+    }
+
+
+    public Context receiveContext(){
+        return context;
+    }
+
+    public FragmentManager receiveFragmentManager(){
+        return fragmentManager;
+    }
+
 
     public void exitTheApp() {
         System.exit(0);

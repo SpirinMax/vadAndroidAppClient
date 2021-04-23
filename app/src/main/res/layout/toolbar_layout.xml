@@ -59,7 +59,8 @@
                     <ImageButton
                         android:id="@+id/requestHelp"
                         style="@style/TollbarIcon"
-                        android:src="@drawable/ic_newrequsthelp" />
+                        android:src="@drawable/ic_newrequsthelp"
+                        android:onClick="testOpenProfile"/>
 
                     <TextView
                         style="@style/ToolbarTextview"

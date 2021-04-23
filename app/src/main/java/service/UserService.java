@@ -81,6 +81,23 @@ public class UserService {
         }
     }
 
+    public User receiveUserData (Response<User> response){
+        User userData = new User();
+        String firstname = response.body().getFirstname();
+        String lastname = response.body().getLastname();
+        String patronymic = response.body().getPatronymic();
+        String email = response.body().getEmail();
+        String password = response.body().getPassword();
+
+        userData.setFirstname(firstname);
+        userData.setLastname(lastname);
+        userData.setPatronymic(patronymic);
+        userData.setEmail(email);
+        userData.setPassword(password);
+
+        return userData;
+    }
+
     public void sendEntityUser (Response<User> response, User user){
         user = response.body();
     }

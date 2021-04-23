@@ -22,6 +22,9 @@ import ui.registration.UiRegistration;
 
 
 public class RegisterActivity extends AppCompatActivity implements RefreshInActivity {
+    private Context thisContext;
+    private FragmentManager fragmentManager;
+    private BehaviorActivity behaviorActivity;
     private EditText useremail,userpassword;
     private TextView textviewHello;
     private User userRequest;
@@ -29,9 +32,7 @@ public class RegisterActivity extends AppCompatActivity implements RefreshInActi
     private UserService userService = new UserService();
     private ServerError serverError = new ServerError();
 
-    private Context thisContext;
-    private FragmentManager fragmentManager;
-    private BehaviorActivity behaviorActivity = new BehaviorActivity();
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -41,8 +42,7 @@ public class RegisterActivity extends AppCompatActivity implements RefreshInActi
 
         thisContext=this;
         fragmentManager = getSupportFragmentManager();
-        behaviorActivity.identifyContext(thisContext);
-        behaviorActivity.identifyFragmentManager(fragmentManager);
+        behaviorActivity=new BehaviorActivity(thisContext,fragmentManager);
 
         useremail = findViewById(R.id.useremail);
         userpassword = findViewById(R.id.userpassword);

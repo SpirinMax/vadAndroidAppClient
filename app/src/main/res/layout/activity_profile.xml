@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/greyBackground"
     tools:context=".ProfileActivity">
 
     <RelativeLayout
@@ -12,121 +13,218 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        android:layout_margin="20dp"
-        >
-        <RelativeLayout
-            android:id="@+id/fioPhoto"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content">
-            <androidx.cardview.widget.CardView
-                android:id="@+id/cardViewPhoto"
-                android:layout_width="75dp"
-                android:layout_height="75dp"
-                app:cardCornerRadius="80dp"
-                android:elevation="10dp">
-                <ImageView
-                    android:layout_width="75dp"
-                    android:layout_height="75dp"
-                    android:adjustViewBounds="true"
-                    android:background="@color/green"
-                    android:scaleType="centerCrop"
-                    android:src="@drawable/photo" />
+        android:layout_margin="15dp">
 
-            </androidx.cardview.widget.CardView>
-            <RelativeLayout
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:orientation="vertical"
-                android:layout_marginLeft="25dp"
-                android:layout_toEndOf="@+id/cardViewPhoto"
-                android:layout_centerVertical="true">
-                <TextView
-                    android:textSize="18sp"
-                    android:id="@+id/surnameName"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:textColor="@color/black"
-                    android:text="Спирин Максим"/>
-                <TextView
-                    android:textSize="18sp"
-                    android:textColor="@color/black"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_below="@+id/surnameName"
-                    android:layout_centerHorizontal="true"
-                    android:text="Валерьевич"/>
-            </RelativeLayout>
-        </RelativeLayout>
-
-
-        <LinearLayout
+        <androidx.cardview.widget.CardView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:layout_below="@+id/fioPhoto">
+            app:cardCornerRadius="15dp"
+            android:id="@+id/headerProfile">
             <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_weight="1">
-                <ImageView
-                    android:id="@+id/iconlabelCountHelp"
-                    android:layout_width="50dp"
-                    android:layout_height="50dp"
-                    android:src="@drawable/ic_heath" />
-                <TextView
-                    android:id="@+id/labelCountHelp"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_toEndOf="@+id/iconlabelCountHelp"
-                    android:layout_centerVertical="true"
-                    android:textSize="16sp"
-                    android:textColor="@color/black"
-                    android:layout_marginRight="6dp"
-                    android:text="Помощь:"/>
-                <TextView
-                    android:layout_toEndOf="@+id/labelCountHelp"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_centerVertical="true"
-                    android:textSize="16sp"
-                    android:textColor="@color/black"
-                    android:text="2456"/>
-            </RelativeLayout>
+                android:background="@color/white"
+                android:padding="5dp">
+                <RelativeLayout
+                    android:id="@+id/fioPhoto"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+                    <androidx.cardview.widget.CardView
+                        android:id="@+id/cardViewPhoto"
+                        android:layout_width="75dp"
+                        android:layout_height="75dp"
+                        app:cardCornerRadius="80dp"
+                        android:elevation="10dp">
+                        <ImageView
+                            android:layout_width="75dp"
+                            android:layout_height="75dp"
+                            android:adjustViewBounds="true"
+                            android:background="@color/green"
+                            android:scaleType="centerCrop"
+                            android:src="@drawable/photo" />
 
-            <RelativeLayout
+                    </androidx.cardview.widget.CardView>
+                    <RelativeLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical"
+                        android:layout_marginLeft="25dp"
+                        android:layout_toEndOf="@+id/cardViewPhoto"
+                        android:layout_centerVertical="true">
+                        <TextView
+                            android:textSize="18sp"
+                            android:id="@+id/surnamenameTextview"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:textColor="@color/black"
+                            android:text="Имя Фамилия"/>
+                        <TextView
+                            android:id="@+id/patronymicTextview"
+                            android:textSize="18sp"
+                            android:textColor="@color/black"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_below="@+id/surnamenameTextview"
+                            android:layout_centerHorizontal="true"
+                            android:text="Отчество"/>
+                    </RelativeLayout>
+                </RelativeLayout>
+
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:id="@+id/helpRatingContent"
+                    android:layout_below="@+id/fioPhoto"
+                    android:baselineAligned="false">
+                    <RelativeLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1">
+                        <ImageView
+                            android:id="@+id/iconlabelCountHelp"
+                            android:layout_width="33dp"
+                            android:layout_height="33dp"
+                            android:layout_marginVertical="8.5dp"
+                            android:layout_marginRight="5dp"
+                            android:src="@drawable/ic_heath_2" />
+                        <TextView
+                            android:id="@+id/labelAboutHelp"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_toEndOf="@+id/iconlabelCountHelp"
+                            android:layout_centerVertical="true"
+                            android:textSize="16sp"
+                            android:textColor="@color/black"
+                            android:layout_marginRight="6dp"
+                            android:text="Помощь:"/>
+                        <TextView
+                            android:id="@+id/labelCountHelp"
+                            android:layout_toEndOf="@+id/labelAboutHelp"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_centerVertical="true"
+                            android:textSize="16sp"
+                            android:textColor="@color/black"
+                            android:text="2456"/>
+                    </RelativeLayout>
+
+                    <RelativeLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1.5"
+                        >
+                        <ImageView
+                            android:id="@+id/iconlabelRating"
+                            android:layout_width="33dp"
+                            android:layout_height="33dp"
+                            android:layout_marginVertical="8.5dp"
+                            android:src="@drawable/ic_color_rating" />
+                        <TextView
+                            android:id="@+id/labelRating"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:textSize="16sp"
+                            android:layout_centerVertical="true"
+                            android:layout_toEndOf="@id/iconlabelRating"
+                            android:textColor="@color/black"
+                            android:layout_marginRight="6dp"
+                            android:text="Рейтинг:"/>
+                        <TextView
+                            android:layout_toEndOf="@+id/labelRating"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:textSize="16sp"
+                            android:layout_centerVertical="true"
+                            android:textColor="@color/black"
+                            android:text="2456"/>
+                    </RelativeLayout>
+                </LinearLayout>
+            </RelativeLayout>
+        </androidx.cardview.widget.CardView>
+
+        <Button
+            android:id="@+id/buttonEditProfile"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:backgroundTint="@color/editButtonInProfile"
+            android:textColor="@color/black"
+            android:layout_below="@+id/headerProfile"
+            android:layout_margin="4dp"
+            android:text="Редактировать"/>
+
+
+        <androidx.cardview.widget.CardView
+            android:id="@+id/ddd"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/buttonEditProfile"
+            app:cardCornerRadius="20dp">
+            <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_weight="1.2"
-                >
-                <ImageView
-                    android:id="@+id/iconlabelRating"
-                    android:layout_width="33dp"
-                    android:layout_height="33dp"
-                    android:layout_marginVertical="8.5dp"
-                    android:src="@drawable/ic_color_rating" />
-                <TextView
-                    android:id="@+id/labelRating"
-                    android:layout_width="wrap_content"
+                android:orientation="horizontal"
+                android:padding="5dp"
+                android:baselineAligned="false">
+                <RelativeLayout
+                    android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:textSize="16sp"
-                    android:layout_centerVertical="true"
-                    android:layout_toEndOf="@id/iconlabelRating"
-                    android:textColor="@color/black"
-                    android:layout_marginRight="6dp"
-                    android:text="Рейтинг:"/>
-                <TextView
-                    android:layout_toEndOf="@+id/labelRating"
-                    android:layout_width="wrap_content"
+                    android:layout_weight="1">
+                    <ImageButton
+                        android:id="@+id/helpIcon"
+                        style="@style/TollbarIcon"
+                        android:src="@drawable/ic_heath_2" />
+                    <TextView
+                        style="@style/ToolbarTextview"
+                        android:layout_below="@id/helpIcon"
+                        android:text="Моя помощь" />
+                </RelativeLayout>
+                <RelativeLayout
+                    android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:textSize="16sp"
-                    android:layout_centerVertical="true"
-                    android:textColor="@color/black"
-                    android:text="2456"/>
-            </RelativeLayout>
-
-        </LinearLayout>
-
-
+                    android:layout_weight="1">
+                    <ImageButton
+                        android:id="@+id/myRatingIcon"
+                        style="@style/TollbarIcon"
+                        android:background="@color/white"
+                        android:src="@drawable/ic_color_rating" />
+                    <TextView
+                        style="@style/ToolbarTextview"
+                        android:layout_below="@id/myRatingIcon"
+                        android:text="Мой рейтинг" />
+                </RelativeLayout>
+                <RelativeLayout
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1">
+                    <ImageButton
+                        android:id="@+id/mygroupIcon"
+                        style="@style/TollbarIcon"
+                        android:background="@color/white"
+                        android:src="@drawable/ic_group" />
+                    <TextView
+                        style="@style/ToolbarTextview"
+                        android:layout_below="@id/mygroupIcon"
+                        android:textAlignment="center"
+                        android:text="Объединение" />
+                </RelativeLayout>
+                <RelativeLayout
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1">
+                    <ImageButton
+                        android:id="@+id/settingsIcon"
+                        style="@style/TollbarIcon"
+                        android:background="@color/white"
+                        android:src="@drawable/ic_settings" />
+                    <TextView
+                        style="@style/ToolbarTextview"
+                        android:layout_below="@id/settingsIcon"
+                        android:text="Настройки" />
+                </RelativeLayout>
+            </LinearLayout>
+        </androidx.cardview.widget.CardView>
     </RelativeLayout>
 
     <include
@@ -135,4 +233,5 @@
         android:layout_height="wrap_content"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -17,7 +17,7 @@ public class MainActivity extends AppCompatActivity {
     LinearLayout linearLayoutEditContent;
     User userRequest;
     Intent intent;
-    BehaviorActivity behaviorActivity = new BehaviorActivity();
+    BehaviorActivity behaviorActivity;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -25,8 +25,7 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         getSupportActionBar().hide(); //скрыть tollbar
 
-        behaviorActivity.identifyContext(this);
-
+        behaviorActivity = new BehaviorActivity(this,getSupportFragmentManager());
         userRequest = new User();
         intent= new Intent(this, RegisterActivity.class);
 

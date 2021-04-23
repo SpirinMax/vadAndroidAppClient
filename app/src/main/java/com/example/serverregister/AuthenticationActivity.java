@@ -1,6 +1,7 @@
 package com.example.serverregister;
 
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -23,16 +24,16 @@ import ui.registration.TransitToRegistration;
 import ui.registration.UiRegistration;
 
 public class AuthenticationActivity extends AppCompatActivity implements TransitToRegistration, RefreshInActivity {
-    EditText useremail,userpassword;
+    Context thisContext;
+    FragmentManager fragmentManager;
+    BehaviorActivity behaviorActivity;
+    EditText useremail, userpassword;
     Button buttonAuth;
     TextView textviewHello;
     LinearLayout linearLayoutEditContent;
     User userRequest = new User();
-    UserService userService=new UserService();
+    UserService userService = new UserService();
 
-    Context thisContext;
-    FragmentManager fragmentManager;
-    BehaviorActivity behaviorActivity = new BehaviorActivity();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -42,8 +43,7 @@ public class AuthenticationActivity extends AppCompatActivity implements Transit
 
         thisContext = this;
         fragmentManager = getSupportFragmentManager();
-        behaviorActivity.identifyContext(thisContext);
-        behaviorActivity.identifyFragmentManager(fragmentManager);
+        behaviorActivity = new BehaviorActivity(thisContext, fragmentManager);
 
         useremail = findViewById(R.id.useremail);
         userpassword = findViewById(R.id.userpassword);
@@ -51,27 +51,27 @@ public class AuthenticationActivity extends AppCompatActivity implements Transit
         linearLayoutEditContent = findViewById(R.id.linearLayoutEditContent);
     }
 
-    public void authenticationUser(View view){
-        if (UiRegistration.checkOfNull(linearLayoutEditContent,AuthenticationActivity.this)) {
-            userService.createCredentials(userRequest,useremail.getText().toString(),userpassword.getText().toString());
-
+    public void authenticationUser(View view) {
+        if (UiRegistration.checkOfNull(linearLayoutEditContent, AuthenticationActivity.this)) {
+            userService.createCredentials(userRequest, useremail.getText().toString(), userpassword.getText().toString());
             Call<User> userResponseCall = ApiClient.getUserService().loginApp(userRequest);
             userResponseCall.enqueue(new Callback<User>() {
                 @Override
                 public void onResponse(Call<User> call, Response<User> response) {
-                    userService.loginApp(response,behaviorActivity);
+                    userService.loginApp(response, behaviorActivity);
+                    Intent profileIntent = new Intent(thisContext, ProfileActivity.class);
+                    User userData = new User();
+                    userData = userService.receiveUserData(response);
+
+                    behaviorActivity.receiveDataInActivity(profileIntent, User.class.getSimpleName(), userData);
                 }
 
                 @Override
                 public void onFailure(Call<User> call, Throwable t) {
-                    ServerError.DisplayDialogLossConnection(thisContext,fragmentManager);
+                    ServerError.DisplayDialogLossConnection(thisContext, fragmentManager);
                 }
             });
         }
-    }
-
-    public void goRegisterActivity (View view) {
-        behaviorActivity.goInRegisterActivity();
     }
 
     @Override
@@ -79,9 +79,14 @@ public class AuthenticationActivity extends AppCompatActivity implements Transit
         behaviorActivity.goInRegisterActivity();
     }
 
-    public void refreshActivity(){
+    public void refreshActivity() {
         this.finish();
         startActivity(getIntent());
     }
+
+    private void goRegisterActivity(View view) {
+        behaviorActivity.goInRegisterActivity();
+    }
+
 }
 

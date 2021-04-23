@@ -12,16 +12,26 @@
     <string name="signInVerb">Войти</string>
     <string name="auth">Авторизоваться</string>
     <string name="needAuth">Необходимо зайти в профиль</string>
+    <string name="invalidLogin">Неверный логин и пароль</string>
+    <string name="messageInvalidLogin">Если вы не зарегистрированы нажмите ЗАРЕГИСТРИРОВАТЬСЯ</string>
 
     <string name="signUp">Регистрация</string>
     <string name="signUpVerb">Зарегистрироваться</string>
 
     <string name="continueString">Продолжить</string>
     <string name="cancel">Отмена</string>
+    <string name="OK">ОК</string>
+    <string name="exitDialog">Закрыть</string>
     <string name="dialogCancel">Для закрытия окна нажмите ОТМЕНА</string>
     <string name="empty">""</string>
     <string name="errorNetwork">Ошибка сети! Проверьте подключение!</string>
     <string name="noConnection">Нет подключения к серверу. Нажми ПОПРОБЫВАТЬ СНОВА, чтобы перезагрузить страницу</string>
+    <string name="errorServer">Ошибка сервера</string>
+    <string name="serverFailedData">Серверу не удалось обработать результат!</string>
+    <string name="notFoundedLabel">Ресурс не найден</string>
+    <string name="notFoundedMes">Возможно ссылка на данный ресурс остутствует!</string>
+    <string name="timeoutConnection">Медленное интернет соединение</string>
+    <string name="again">Повторите действие!</string>
     <string name="refreshApp">Попробывать снова</string>
     <string name="exitApp">Выйти</string>
 

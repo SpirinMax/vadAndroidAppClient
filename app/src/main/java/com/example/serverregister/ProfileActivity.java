@@ -9,8 +9,13 @@ import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import entites.User;
+
 public class ProfileActivity extends AppCompatActivity {
 
+    TextView surnamenameTextview,patronymicTextview,labelCountHelp;
+    SharedPreferencesUserInfo sharedPreferencesUserInfo = new SharedPreferencesUserInfo();
+    private User userData = new User();
     @SuppressLint("ResourceAsColor")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -18,6 +23,25 @@ public class ProfileActivity extends AppCompatActivity {
         setContentView(R.layout.activity_profile);
         getSupportActionBar().hide();
 
+        surnamenameTextview = findViewById(R.id.surnamenameTextview);
+        patronymicTextview = findViewById(R.id.patronymicTextview);
+        labelCountHelp= findViewById(R.id.labelCountHelp);
+
+        Bundle userDataBundle = getIntent().getExtras();
+        userData = (User) userDataBundle.getSerializable(User.class.getSimpleName());
+
+        surnamenameTextview.setText(userData.getFirstname()+" "+userData.getLastname());
+        patronymicTextview.setText(userData.getPatronymic());
+        labelCountHelp.setText(String.valueOf(userData.getHelpcounter()));
+
+        displayActivePage();
+
+    }
+
+
+
+
+    private void displayActivePage (){
         RelativeLayout containerIcon = findViewById(R.id.profileButton);
         ImageButton ImageButton = findViewById(R.id.profile);
         TextView IconTextView = findViewById(R.id.profileTextview);
