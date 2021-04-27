@@ -4,7 +4,6 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
-import android.widget.RelativeLayout;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -23,13 +22,13 @@ import ui.registration.TransitToRegistration;
 public class StartActivity extends AppCompatActivity implements RefreshInActivity, TransitToRegistration {
     private FragmentManager thisFragmentManager;
     private Context thisContext;
-    private SharedPreferencesUserInfo sharedPreferencesUserInfo = new SharedPreferencesUserInfo();
     private User userRequest = new User();
     private UserService userService = new UserService();
     private BehaviorActivity behaviorActivity;
-    private RelativeLayout profileButton;
     Intent profileIntent;
     private User userData = new User();
+    private SharedPreferencesUserInfo sharedPreferencesUserInfo = new SharedPreferencesUserInfo();
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -39,12 +38,8 @@ public class StartActivity extends AppCompatActivity implements RefreshInActivit
 
         thisContext = this;
         thisFragmentManager = getSupportFragmentManager();
-
-        behaviorActivity = new BehaviorActivity(thisContext,thisFragmentManager);
-
+        behaviorActivity = new BehaviorActivity(thisContext, thisFragmentManager);
         profileIntent = new Intent(thisContext, ProfileActivity.class);
-
-        profileButton = findViewById(R.id.profileButton);
 
         if (sharedPreferencesUserInfo.checkPresenceSettings(StartActivity.this)) {
             userRequest = sharedPreferencesUserInfo.getSavedSettings(StartActivity.this);
@@ -85,7 +80,6 @@ public class StartActivity extends AppCompatActivity implements RefreshInActivit
         } else {
             behaviorActivity.displayRegisterDialog();
         }
-
     }
 
     public void refreshActivity() {

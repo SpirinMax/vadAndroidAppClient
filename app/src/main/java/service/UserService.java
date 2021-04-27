@@ -14,7 +14,7 @@ public class UserService {
     private SharedPreferencesUserInfo sharedPreferencesUserInfo = new SharedPreferencesUserInfo();
     private ServerError serverError = new ServerError();
 
-    public void saveUser(Response<User> response, BehaviorActivity behaviorActivity){
+    public void saveUser(Response<User> response, BehaviorActivity behaviorActivity) {
         int serverStatusCode = response.code();
         Context context = behaviorActivity.receiveContext();
         if (response.isSuccessful()) {
@@ -27,10 +27,9 @@ public class UserService {
                     response.body().getPassword()
             );
         } else {
-            serverError.handleError(serverStatusCode,behaviorActivity);
+            serverError.handleError(serverStatusCode, behaviorActivity);
         }
     }
-
 
 
 //    public void saveUser(Callback<User> responseBody,User userRequest, Context context,FragmentManager fragmentManager) {
@@ -64,9 +63,9 @@ public class UserService {
     public void loginApp(Response<User> response, BehaviorActivity behaviorActivity) {
         int serverStatusCode = response.code();
         Context context = behaviorActivity.receiveContext();
-        if(response.isSuccessful()){
-            String name = String.valueOf(response.body().getFirstname())+ " "+String.valueOf(response.body().getLastname());
-            Toast.makeText(context, name+","+" поздравляем с успешной авторизацией",Toast.LENGTH_SHORT).show();
+        if (response.isSuccessful()) {
+            String name = String.valueOf(response.body().getFirstname()) + " " + String.valueOf(response.body().getLastname());
+            Toast.makeText(context, name + "," + " поздравляем с успешной авторизацией", Toast.LENGTH_SHORT).show();
             sharedPreferencesUserInfo.setSettings(
                     context,
                     response.body().getLastname(),
@@ -77,28 +76,46 @@ public class UserService {
             );
 
         } else {
-            serverError.handleError(serverStatusCode,behaviorActivity);
+            serverError.handleError(serverStatusCode, behaviorActivity);
         }
     }
 
-    public User receiveUserData (Response<User> response){
+    public User receiveUserData(Response<User> response) {
         User userData = new User();
+        int id = response.body().getId();
         String firstname = response.body().getFirstname();
         String lastname = response.body().getLastname();
         String patronymic = response.body().getPatronymic();
         String email = response.body().getEmail();
         String password = response.body().getPassword();
+        String aboutuser = response.body().getAboutuser();
+        String phone = response.body().getPhone();
+        byte[] photo = response.body().getPhoto();
+        int helpcounter = response.body().getHelpcounter();
+        String region = response.body().getRegion();
+        String district = response.body().getDistrict();
+        String city = response.body().getCity();
 
+        userData.setId(id);
         userData.setFirstname(firstname);
         userData.setLastname(lastname);
         userData.setPatronymic(patronymic);
         userData.setEmail(email);
         userData.setPassword(password);
+        userData.setAboutuser(aboutuser);
+        userData.setPhone(phone);
+        userData.setPhoto(photo);
+        userData.setHelpcounter(helpcounter);
+        userData.setRegion(region);
+        userData.setDistrict(district);
+        userData.setCity(city);
 
         return userData;
     }
 
-    public void sendEntityUser (Response<User> response, User user){
+
+
+    public void sendEntityUser(Response<User> response, User user) {
         user = response.body();
     }
 
@@ -131,7 +148,7 @@ public class UserService {
 //        });
 //    }
 
-    public void createCredentials(User userRequest, String email,String password){
+    public void createCredentials(User userRequest, String email, String password) {
         userRequest.setEmail(email);
         userRequest.setPassword(password);
     }

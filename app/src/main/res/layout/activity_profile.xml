@@ -36,12 +36,14 @@
                         app:cardCornerRadius="80dp"
                         android:elevation="10dp">
                         <ImageView
+                            android:id="@+id/imageViewPhotoUser"
                             android:layout_width="75dp"
                             android:layout_height="75dp"
                             android:adjustViewBounds="true"
                             android:background="@color/green"
                             android:scaleType="centerCrop"
-                            android:src="@drawable/photo" />
+                            android:src="@drawable/ic_empty_photo"
+                            />
 
                     </androidx.cardview.widget.CardView>
                     <RelativeLayout

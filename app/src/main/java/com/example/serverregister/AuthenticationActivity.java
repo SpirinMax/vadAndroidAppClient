@@ -62,8 +62,8 @@ public class AuthenticationActivity extends AppCompatActivity implements Transit
                     Intent profileIntent = new Intent(thisContext, ProfileActivity.class);
                     User userData = new User();
                     userData = userService.receiveUserData(response);
-
                     behaviorActivity.receiveDataInActivity(profileIntent, User.class.getSimpleName(), userData);
+                    finish();
                 }
 
                 @Override
