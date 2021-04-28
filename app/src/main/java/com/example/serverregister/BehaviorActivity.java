@@ -43,8 +43,8 @@ public class BehaviorActivity {
         registerDialogFragment.show(fragmentManager,"needRegister");
     }
 
-    public void receiveDataInActivity (@NotNull Intent intent, String nameClass, java.io.Serializable dataClass){
-        intent.putExtra(nameClass,dataClass);
+    public void receiveDataInActivity (@NotNull Intent intent, String nameTemplateClass, java.io.Serializable dataClass){
+        intent.putExtra(nameTemplateClass,dataClass);
         context.startActivity(intent);
     }
 

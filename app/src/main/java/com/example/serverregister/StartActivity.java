@@ -91,8 +91,4 @@ public class StartActivity extends AppCompatActivity implements RefreshInActivit
     public void moveToRegistration() {
         behaviorActivity.goInActivity(AuthenticationActivity.class);
     }
-
-    public void testOpenProfile(View view) {
-        behaviorActivity.goInActivity(ProfileActivity.class);
-    }
 }

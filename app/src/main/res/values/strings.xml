@@ -7,6 +7,11 @@
     <string name="otchestvo">Отчество</string>
     <string name="email">Электронная почта</string>
     <string name="password">Пароль</string>
+    <string name="phone">Ваш номер телефона</string>
+    <string name="aboutMe">Расскажите о себе</string>
+    <string name="youRegion">Ваша область</string>
+    <string name="youDistrict">Ваш район</string>
+    <string name="youCity">Ваш населенный пункт</string>
 
     <string name="signIn">Войти в существующий аккаунт</string>
     <string name="signInVerb">Войти</string>
@@ -17,6 +22,7 @@
 
     <string name="signUp">Регистрация</string>
     <string name="signUpVerb">Зарегистрироваться</string>
+    <string name="editProfileUser">Сохранить изменения</string>
 
     <string name="continueString">Продолжить</string>
     <string name="cancel">Отмена</string>
