@@ -23,7 +23,6 @@ public class UpdatingUserDataActivity extends AppCompatActivity implements Refre
     FragmentManager fragmentManager;
     BehaviorActivity behaviorActivity;
     private User dataRequestUpdateProfile = new User();
-    private User userDataResponseFromServer = new User();
     private UserService userService = new UserService();
     EditText emailEditText, phoneEditText, firstnameEditText, lastnameEditText, patronymicEditText,
             aboutMeEditText, regionEditText, districtEditText, cityEditText;
@@ -34,6 +33,7 @@ public class UpdatingUserDataActivity extends AppCompatActivity implements Refre
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_updating_user_data);
+        getSupportActionBar().hide();
 
         thisContext = this;
         fragmentManager = getSupportFragmentManager();

@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".UnsuccessfulAythenticationActivity">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true">
+        <TextView
+            android:id="@+id/labelUnsuccessgulAyth"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Кажется, Вы не регистрировались в приложении или не смогли войти в профиль!"
+            android:textAlignment="center"
+            android:textSize="20sp"
+            android:textColor="@color/black" />
+        <Button
+            android:id="@+id/buttonSignUp"
+            android:layout_below="@+id/labelUnsuccessgulAyth"
+            android:layout_centerHorizontal="true"
+            android:layout_marginVertical="10dp"
+            android:text="Зарегистрироваться"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
+        <Button
+            android:id="@+id/buttonSingIn"
+            android:layout_below="@+id/buttonSignUp"
+            android:layout_centerHorizontal="true"
+            android:text="Войти"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
+
+        </Button>
+    </RelativeLayout>
+
+</RelativeLayout>

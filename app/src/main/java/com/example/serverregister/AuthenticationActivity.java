@@ -84,8 +84,8 @@ public class AuthenticationActivity extends AppCompatActivity implements Transit
         startActivity(getIntent());
     }
 
-    private void goRegisterActivity(View view) {
-        behaviorActivity.goInRegisterActivity();
+    public void goRegisterActivity(View view) {
+        behaviorActivity.goInRegisterActivity();;
     }
 
 }

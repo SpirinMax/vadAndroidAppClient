@@ -23,7 +23,7 @@ public class BehaviorActivity {
 
 
     public void goInRegisterActivity(){
-        goInActivity(MainActivity.class);
+        goInActivity(FillingNameActivity.class);
     }
 
     public void goInActivity(Class<?> finishActivity){

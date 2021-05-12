@@ -1,5 +1,6 @@
 package retrofit;
 
+import entites.RequestForHelp;
 import entites.User;
 
 import retrofit2.Call;
@@ -16,4 +17,7 @@ public interface UserService {
 
     @POST("DataUserEditedServlet")
     Call<User> updateUserData(@Body User dataRequestUpdateProfile);
+
+    @POST("CreatingNewRequestServlet")
+    Call<RequestForHelp> createRequestForHelp(@Body RequestForHelp requestForHelp);
 }

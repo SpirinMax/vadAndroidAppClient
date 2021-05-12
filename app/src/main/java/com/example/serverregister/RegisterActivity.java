@@ -33,7 +33,6 @@ public class RegisterActivity extends AppCompatActivity implements RefreshInActi
     private ServerError serverError = new ServerError();
 
 
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -64,8 +63,6 @@ public class RegisterActivity extends AppCompatActivity implements RefreshInActi
                 @Override
                 public void onResponse(Call<User> call, Response<User> response) {
                     userService.saveUser(response,behaviorActivity);
-//                    behaviorActivity.goInActivity(AuthenticationActivity.class);
-//                    finish();
                 }
 
                 @Override

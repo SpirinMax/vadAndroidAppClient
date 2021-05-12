@@ -1,7 +1,6 @@
 package service;
 
 import android.content.Context;
-import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Matrix;
@@ -14,7 +13,6 @@ import android.widget.Toast;
 import androidx.annotation.RequiresApi;
 
 import com.example.serverregister.BehaviorActivity;
-import com.example.serverregister.ProfileActivity;
 import com.example.serverregister.SharedPreferencesUserInfo;
 
 import java.io.ByteArrayOutputStream;
@@ -78,9 +76,6 @@ public class UserService {
                     response.body().getEmail(),
                     response.body().getPassword()
             );
-            User userDataResponseFromServer = receiveUserData(response);
-            Intent profileIntent = new Intent(context, ProfileActivity.class);
-            behaviorActivity.receiveDataInActivity(profileIntent, User.class.getSimpleName(), userDataResponseFromServer);
         } else {
             serverError.handleError(serverStatusCode, behaviorActivity);
         }

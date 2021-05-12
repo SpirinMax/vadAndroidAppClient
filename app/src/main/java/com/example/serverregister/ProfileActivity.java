@@ -23,59 +23,92 @@ import androidx.fragment.app.FragmentManager;
 import java.io.IOException;
 
 import entites.User;
+import retrofit.ApiClient;
+import retrofit.ServerError;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 import service.UserService;
+import ui.TransitIconToolbar;
+import ui.errorsServer.RefreshInActivity;
+import ui.registration.TransitToRegistration;
 
-public class ProfileActivity extends AppCompatActivity {
+public class ProfileActivity extends AppCompatActivity implements RefreshInActivity, TransitToRegistration, TransitIconToolbar {
     Context thisContext;
     FragmentManager fragmentManager;
     SharedPreferencesUserInfo sharedPreferencesUserInfo = new SharedPreferencesUserInfo();
     BehaviorActivity behaviorActivity;
+    private User authRequestUser = new User();
     private User userData = new User();
     private User dataRequestUpdateProfile = new User();
     private UserService userService = new UserService();
     private Intent updateUserDataIntent;
+    private ServerError serverError = new ServerError();
     TextView surnamenameTextview, patronymicTextview, labelCountHelp;
     ImageView imageViewPhotoUser;
+
     static final int GALLERY_REQUEST = 1;
 
     @SuppressLint("ResourceAsColor")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_profile);
         getSupportActionBar().hide();
 
         thisContext = this;
         fragmentManager = getSupportFragmentManager();
-        displayActivePage();
-        imageViewPhotoUser = findViewById(R.id.imageViewPhotoUser);
-        surnamenameTextview = findViewById(R.id.surnamenameTextview);
-        patronymicTextview = findViewById(R.id.patronymicTextview);
-        labelCountHelp = findViewById(R.id.labelCountHelp);
         behaviorActivity = new BehaviorActivity(thisContext, fragmentManager);
 
-        Bundle userDataBundle = getIntent().getExtras();
-        userData = (User) userDataBundle.getSerializable(User.class.getSimpleName());
-        dataRequestUpdateProfile = userData;
+        if (sharedPreferencesUserInfo.checkPresenceSettings(thisContext)) {
+            authRequestUser = sharedPreferencesUserInfo.getSavedSettings(thisContext);
+            Call<User> userResponseCall = ApiClient.getUserService().loginApp(authRequestUser);
+            userResponseCall.enqueue(new Callback<User>() {
+                @Override
+                public void onResponse(Call<User> call, Response<User> response) {
+                    int serverStatusCode = response.code();
+                    if (response.isSuccessful()) {
+                        setContentView(R.layout.activity_profile);
+                        displayActivePage();
+                        imageViewPhotoUser = findViewById(R.id.imageViewPhotoUser);
+                        surnamenameTextview = findViewById(R.id.surnamenameTextview);
+                        patronymicTextview = findViewById(R.id.patronymicTextview);
+                        labelCountHelp = findViewById(R.id.labelCountHelp);
 
-        byte[] photoUserByte = userData.getPhoto();
-        if (photoUserByte != null) {
-            Bitmap photoUserBitmap = userService.receiveBitmapFromByteArray(photoUserByte);
-            imageViewPhotoUser.setImageBitmap(photoUserBitmap);
+                        userData = userService.receiveUserData(response);
+                        byte[] photoUserByte = userData.getPhoto();
+                        if (photoUserByte != null) {
+                            Bitmap photoUserBitmap = userService.receiveBitmapFromByteArray(photoUserByte);
+                            imageViewPhotoUser.setImageBitmap(photoUserBitmap);
+                        }
+
+                        dataRequestUpdateProfile = userData;
+                        surnamenameTextview.setText(userData.getFirstname() + " " + userData.getLastname());
+                        patronymicTextview.setText(userData.getPatronymic());
+                        labelCountHelp.setText(String.valueOf(userData.getHelpcounter()));
+
+                        imageViewPhotoUser.setOnClickListener(new View.OnClickListener() {
+                            @Override
+                            public void onClick(View v) {
+                                Intent photoPickerIntent = new Intent(Intent.ACTION_PICK);
+                                photoPickerIntent.setType("image/*");
+                                startActivityForResult(photoPickerIntent, GALLERY_REQUEST);
+                            }
+                        });
+
+                    } else {
+                        serverError.handleError(serverStatusCode, behaviorActivity);
+                    }
+                }
+
+                @Override
+                public void onFailure(Call<User> call, Throwable t) {
+                    ServerError.DisplayDialogLossConnection(thisContext, getSupportFragmentManager());
+                }
+            });
+        } else {
+            behaviorActivity.goInActivity(UnsuccessfulAythenticationActivity.class);
+            finish();
         }
-
-        imageViewPhotoUser.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent photoPickerIntent = new Intent(Intent.ACTION_PICK);
-                photoPickerIntent.setType("image/*");
-                startActivityForResult(photoPickerIntent, GALLERY_REQUEST);
-            }
-        });
-
-        surnamenameTextview.setText(userData.getFirstname() + " " + userData.getLastname());
-        patronymicTextview.setText(userData.getPatronymic());
-        labelCountHelp.setText(String.valueOf(userData.getHelpcounter()));
     }
 
     @RequiresApi(api = Build.VERSION_CODES.N)
@@ -99,6 +132,25 @@ public class ProfileActivity extends AppCompatActivity {
         }
     }
 
+    public void goRequestCreationActivity(View view) {
+        behaviorActivity.goInActivity(RequestCreationStageActivity.class);
+    }
+
+    @Override
+    public void goProfileActivity(View view) {
+        //это текущая активность
+    }
+
+    @Override
+    public void goListRequests(View view) {
+        //
+    }
+
+    @Override
+    public void goHistory(View view) {
+        //
+    }
+
     public void goUserDataEditingActivity(View view) {
         updateUserDataIntent = new Intent(thisContext, UpdatingUserDataActivity.class);
         behaviorActivity.receiveDataInActivity(updateUserDataIntent, User.class.getSimpleName(), dataRequestUpdateProfile);
@@ -116,4 +168,15 @@ public class ProfileActivity extends AppCompatActivity {
         IconTextView.setTextColor(resources.getColor(R.color.red));
     }
 
+    @Override
+    public void refreshActivity() {
+        this.finish();
+        startActivity(getIntent());
+    }
+
+    @Override
+    public void moveToRegistration() {
+        behaviorActivity.goInActivity(AuthenticationActivity.class);
+        finish();
+    }
 }

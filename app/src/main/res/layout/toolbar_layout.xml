@@ -55,20 +55,24 @@
                 </RelativeLayout>
 
                 <RelativeLayout
+                    android:id="@+id/creationRequestContainer"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1">
 
                     <ImageButton
-                        android:id="@+id/requestHelp"
+                        android:id="@+id/creationRequesticon"
                         style="@style/TollbarIcon"
-                        android:src="@drawable/ic_newrequsthelp" />
+                        android:src="@drawable/ic_newrequsthelp"
+                        android:onClick="goRequestCreationActivity"/>
 
                     <TextView
+                        android:id="@+id/creationRequestTextView"
                         style="@style/ToolbarTextview"
-                        android:layout_below="@id/requestHelp"
+                        android:layout_below="@id/creationRequesticon"
                         android:text="Создать"
-                        android:textSize="13sp" />
+                        android:textSize="13sp"
+                        android:onClick="goRequestCreationActivity"/>
                 </RelativeLayout>
 
                 <RelativeLayout

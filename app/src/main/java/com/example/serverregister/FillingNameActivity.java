@@ -11,7 +11,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import entites.User;
 import ui.registration.UiRegistration;
 
-public class MainActivity extends AppCompatActivity {
+public class FillingNameActivity extends AppCompatActivity {
 
     EditText userfirstname,userlastname,userpatronymic;
     LinearLayout linearLayoutEditContent;
@@ -36,7 +36,7 @@ public class MainActivity extends AppCompatActivity {
 
     }
     public void sendNameUser (View view){
-        if (UiRegistration.checkOfNull(linearLayoutEditContent,MainActivity.this)){
+        if (UiRegistration.checkOfNull(linearLayoutEditContent, FillingNameActivity.this)){
             userRequest.setFirstname(userfirstname.getText().toString());
             userRequest.setLastname(userlastname.getText().toString());
             userRequest.setPatronymic(userpatronymic.getText().toString());

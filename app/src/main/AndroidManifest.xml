@@ -17,7 +17,11 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.ServerRegister"
         android:usesCleartextTraffic="true">
-        <activity android:name=".UpdatingUserDataActivity"></activity>
+        <activity android:name=".UnsuccessfulAythenticationActivity"></activity>
+        <activity
+            android:name=".RequestCreationStageActivity"
+            android:windowSoftInputMode="adjustPan"></activity>
+        <activity android:name=".UpdatingUserDataActivity" />
         <activity android:name=".Test" />
         <activity android:name=".ProfileActivity" />
         <activity android:name=".StartActivity">
@@ -34,7 +38,7 @@
             android:resource="@xml/network_security_config" />
 
         <activity android:name=".RegisterActivity" />
-        <activity android:name=".MainActivity" />
+        <activity android:name=".FillingNameActivity" />
     </application>
 
 </manifest>
