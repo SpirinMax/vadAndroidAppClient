@@ -131,31 +131,6 @@ public class RequestCreationStageActivity extends AppCompatActivity implements T
 
     }
 
-    @Override
-    public void refreshActivity() {
-        this.finish();
-        startActivity(getIntent());
-    }
-
-    @Override
-    public void goRequestCreationActivity(View view) {
-        //это данная активность
-    }
-
-    public void goProfileActivity(View view) {
-        behaviorActivity.goInActivity(ProfileActivity.class);
-    }
-
-    @Override
-    public void goListRequests(View view) {
-
-    }
-
-    @Override
-    public void goHistory(View view) {
-
-    }
-
     public void selectDateRequest(View view) {
         DatePickerDialog datePickerDialog =
                 new DatePickerDialog(thisContext, new DatePickerDialog.OnDateSetListener() {
@@ -215,6 +190,7 @@ public class RequestCreationStageActivity extends AppCompatActivity implements T
                                 int serverStatusCode = response.code();
                                 if (response.isSuccessful()) {
                                     Toast.makeText(thisContext, "Заявка успешно создана!", Toast.LENGTH_LONG).show();
+                                    behaviorActivity.goInActivity(StartActivity.class);
                                 } else {
                                     serverError.handleError(serverStatusCode, behaviorActivity);
                                 }
@@ -229,6 +205,40 @@ public class RequestCreationStageActivity extends AppCompatActivity implements T
                 }
             }
         }
+    }
+
+    public void updateListTypeRequests(View view) {
+        listTypesRequest.clear();
+        setListTypeRequest();
+        typeRequest = "";
+        TypeRequestsAdapter typeRequestsAdapter =
+                new TypeRequestsAdapter(thisContext, R.layout.list_type_request_layout, listTypesRequest);
+        listViewTypesRequest.setAdapter(typeRequestsAdapter);
+    }
+
+    @Override
+    public void refreshActivity() {
+        this.finish();
+        startActivity(getIntent());
+    }
+
+    @Override
+    public void goRequestCreationActivity(View view) {
+        //это данная активность
+    }
+
+    public void goProfileActivity(View view) {
+        behaviorActivity.goInActivity(ProfileActivity.class);
+    }
+
+    @Override
+    public void goListRequests(View view) {
+        behaviorActivity.goInActivity(StartActivity.class);
+    }
+
+    @Override
+    public void goHistory(View view) {
+
     }
 
     private void fillRequestForHelp(RequestForHelp requestForHelp) throws ParseException {
@@ -275,16 +285,6 @@ public class RequestCreationStageActivity extends AppCompatActivity implements T
         int mun = startDate.get(Calendar.MINUTE);
         startDate.set(y, m, day, h, mun);
         return startDate;
-    }
-
-
-    public void updateListTypeRequests(View view) {
-        listTypesRequest.clear();
-        setListTypeRequest();
-        typeRequest = "";
-        TypeRequestsAdapter typeRequestsAdapter =
-                new TypeRequestsAdapter(thisContext, R.layout.list_type_request_layout, listTypesRequest);
-        listViewTypesRequest.setAdapter(typeRequestsAdapter);
     }
 
     private void setListTypeRequest() {

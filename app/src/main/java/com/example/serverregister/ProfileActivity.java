@@ -143,7 +143,7 @@ public class ProfileActivity extends AppCompatActivity implements RefreshInActiv
 
     @Override
     public void goListRequests(View view) {
-        //
+        behaviorActivity.goInActivity(StartActivity.class);
     }
 
     @Override
@@ -153,7 +153,7 @@ public class ProfileActivity extends AppCompatActivity implements RefreshInActiv
 
     public void goUserDataEditingActivity(View view) {
         updateUserDataIntent = new Intent(thisContext, UpdatingUserDataActivity.class);
-        behaviorActivity.receiveDataInActivity(updateUserDataIntent, User.class.getSimpleName(), dataRequestUpdateProfile);
+        behaviorActivity.sendDataInActivity(updateUserDataIntent, User.class.getSimpleName(), dataRequestUpdateProfile);
     }
 
     private void displayActivePage() {

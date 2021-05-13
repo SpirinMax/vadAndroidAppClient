@@ -17,10 +17,11 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.ServerRegister"
         android:usesCleartextTraffic="true">
-        <activity android:name=".UnsuccessfulAythenticationActivity"></activity>
+        <activity android:name=".RequestForHelpActivity"></activity>
+        <activity android:name=".UnsuccessfulAythenticationActivity" />
         <activity
             android:name=".RequestCreationStageActivity"
-            android:windowSoftInputMode="adjustPan"></activity>
+            android:windowSoftInputMode="adjustPan" />
         <activity android:name=".UpdatingUserDataActivity" />
         <activity android:name=".Test" />
         <activity android:name=".ProfileActivity" />

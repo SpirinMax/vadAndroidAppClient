@@ -10,6 +10,7 @@ public class SharedPreferencesUserInfo {
     private  SharedPreferences settings ;
 
     public  static final String PREF_FILE = "profile";
+    private static final String ID = "id";
     private static final String PREF_NAME = "name";
     private static final String PREF_SURNAME = "surname";
     private static final String PREF_PATRONYMIC = "patronymic";
@@ -20,16 +21,17 @@ public class SharedPreferencesUserInfo {
         return PREF_FILE;
     }
 
-    private SharedPreferences getSettings (Context context){
+    public SharedPreferences getSettings (Context context){
         settings = context.getSharedPreferences(PREF_FILE,Context.MODE_PRIVATE);
       return  settings;
     }
 
-    public void setSettings (Context context, String userName, String userSurname, String userPatronymic, String userEmail,String userPassword){
+    public void setSettings (Context context, String userName, int id, String userSurname, String userPatronymic, String userEmail,String userPassword){
         settings = getSettings(context);
         SharedPreferences.Editor prefEditor = settings.edit();
 
         prefEditor.putString(PREF_NAME, userName);
+        prefEditor.putString(ID,String.valueOf(id));
         prefEditor.putString(PREF_SURNAME, userSurname);
         prefEditor.putString(PREF_PATRONYMIC, userPatronymic);
         prefEditor.putString(PREF_EMAIL, userEmail);
@@ -41,12 +43,14 @@ public class SharedPreferencesUserInfo {
     public User getSavedSettings(Context context){
         User user = new User();
         settings = getSettings(context);
+        String id = getID(settings);
         String firstname = getPrefSurname(settings);
         String lastname = getPrefName(settings);
         String patronymic = getPrefPatronymic(settings);
         String email = getPrefEmail(settings);
         String password = getPrefPassword(settings);
 
+        user.setId(Integer.parseInt(id));
         user.setFirstname(firstname);
         user.setLastname(lastname);
         user.setPatronymic(patronymic);
@@ -65,6 +69,10 @@ public class SharedPreferencesUserInfo {
         } else {
             return false;
         }
+    }
+
+    public static String getID(SharedPreferences settings) {
+        return settings.getString(ID, "0");
     }
 
     public String getPrefName(SharedPreferences settings) {

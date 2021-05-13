@@ -39,18 +39,22 @@
                 </RelativeLayout>
 
                 <RelativeLayout
+                    android:id="@+id/containerIconRequest"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1">
 
                     <ImageButton
-                        android:id="@+id/listRequest"
+                        android:id="@+id/iconRequests"
                         style="@style/TollbarIcon"
-                        android:src="@drawable/ic_listrequest" />
+                        android:src="@drawable/ic_listrequest"
+                        android:onClick="goListRequests"/>
 
                     <TextView
+                        android:id="@+id/textViewRequest"
                         style="@style/ToolbarTextview"
-                        android:layout_below="@id/listRequest"
+                        android:layout_below="@id/iconRequests"
+                        android:onClick="goListRequests"
                         android:text="Заявки" />
                 </RelativeLayout>
 

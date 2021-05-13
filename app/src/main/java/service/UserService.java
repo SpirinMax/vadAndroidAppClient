@@ -17,6 +17,8 @@ import com.example.serverregister.SharedPreferencesUserInfo;
 
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
+import java.util.Calendar;
+import java.util.Set;
 
 import entites.User;
 import retrofit.ServerError;
@@ -33,6 +35,7 @@ public class UserService {
             sharedPreferencesUserInfo.setSettings(
                     context,
                     response.body().getLastname(),
+                    response.body().getId(),
                     response.body().getFirstname(),
                     response.body().getPatronymic(),
                     response.body().getEmail(),
@@ -52,6 +55,7 @@ public class UserService {
             sharedPreferencesUserInfo.setSettings(
                     context,
                     response.body().getLastname(),
+                    response.body().getId(),
                     response.body().getFirstname(),
                     response.body().getPatronymic(),
                     response.body().getEmail(),
@@ -71,6 +75,7 @@ public class UserService {
             sharedPreferencesUserInfo.setSettings(
                     context,
                     response.body().getLastname(),
+                    response.body().getId(),
                     response.body().getFirstname(),
                     response.body().getPatronymic(),
                     response.body().getEmail(),
@@ -193,5 +198,50 @@ public class UserService {
             return 270;
         }
         return 0;
+    }
+
+    public static String receiveCountParticipants(Set<User> participants) {
+        int count = participants.size();
+        return String.valueOf(count);
+    }
+
+    public static String receiveStringDateTime(Calendar dateTime) {
+        String y = String.valueOf(dateTime.get(Calendar.YEAR));
+        String m = convertIntMonthInString(dateTime.get(Calendar.MONTH) + 1);
+        String day = String.valueOf(dateTime.get(Calendar.DAY_OF_MONTH));
+        String h = String.valueOf(dateTime.get(Calendar.HOUR_OF_DAY));
+        String mun = String.valueOf(dateTime.get(Calendar.MINUTE));
+        String resultStringDateTime = day + " " + m + " " + y + " , " + h + ":" + mun;
+        return resultStringDateTime;
+    }
+
+    private static String convertIntMonthInString(int monthInt) {
+        String monthStr = null;
+        if (monthInt == 1) {
+            monthStr = "января";
+        } else if (monthInt == 2) {
+            monthStr = "февраля";
+        } else if (monthInt == 3) {
+            monthStr = "марта";
+        } else if (monthInt == 4) {
+            monthStr = "апреля";
+        } else if (monthInt == 5) {
+            monthStr = "мая";
+        } else if (monthInt == 6) {
+            monthStr = "июня";
+        } else if (monthInt == 7) {
+            monthStr = "июля";
+        } else if (monthInt == 8) {
+            monthStr = "августа";
+        } else if (monthInt == 9) {
+            monthStr = "сентября";
+        } else if (monthInt == 10) {
+            monthStr = "октября";
+        } else if (monthInt == 11) {
+            monthStr = "ноября";
+        } else if (monthInt == 12) {
+            monthStr = "декабря";
+        }
+        return monthStr;
     }
 }
