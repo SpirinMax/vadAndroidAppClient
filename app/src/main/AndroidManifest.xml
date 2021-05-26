@@ -17,7 +17,8 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.ServerRegister"
         android:usesCleartextTraffic="true">
-        <activity android:name=".RequestForHelpActivity"></activity>
+        <activity android:name=".QuestByParametersActivity"></activity>
+        <activity android:name=".RequestForHelpActivity" />
         <activity android:name=".UnsuccessfulAythenticationActivity" />
         <activity
             android:name=".RequestCreationStageActivity"

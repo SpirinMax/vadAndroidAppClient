@@ -7,38 +7,105 @@
     android:background="@color/greyBackground"
     tools:context=".StartActivity">
 
-    <LinearLayout
+    <RelativeLayout
+        android:id="@+id/toolbarTop"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:background="@color/link"
+        android:padding="10dp">
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:layout_centerVertical="true"
+            android:text="Заявки о помощи"
+            android:textSize="16sp"
+            android:textColor="@color/white"
+            android:textStyle="bold" />
+        <ImageView
+            android:layout_width="20dp"
+            android:layout_height="20dp"
+            android:layout_marginRight="10dp"
+            android:src="@drawable/ic_filter"
+            android:layout_alignParentEnd="true"
+            android:onClick="goQuestActivity"/>
+    </RelativeLayout>
+
+    <LinearLayout
+        android:id="@+id/tabMenuRequest"
+        android:layout_below="@+id/toolbarTop"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:divider="@color/black"
+        android:showDividers="middle"
+        android:background="@color/white"
+        android:paddingVertical="10dp"
+        android:orientation="horizontal">
+        <TextView
+            android:id="@+id/allRequest"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:layout_marginHorizontal="2dp"
+            android:gravity="center"
+            android:text="Все"
+            android:textSize="16sp"
+            android:textColor="@color/black"
+            android:onClick="displayAllRequestsClick"/>
+        <TextView
+            android:id="@+id/iPartRequest"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:layout_marginHorizontal="2dp"
+            android:gravity="center"
+            android:text="Волонтер"
+            android:textSize="16sp"
+            android:textColor="@color/black"
+            android:onClick="displayRequestWhereIParticipant"/>
+        <TextView
+            android:id="@+id/iAuthorRequest"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:layout_marginHorizontal="2dp"
+            android:gravity="center"
+            android:text="Автор"
+            android:textSize="16sp"
+            android:textColor="@color/black"
+            android:onClick="displayRequestWhereIAuthor"/>
+
+    </LinearLayout>
+
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/tabMenuRequest"
         android:layout_marginTop="10dp"
         android:background="@color/greyBackground"
-        android:orientation="vertical"
         android:padding="3dp">
 
-        <RelativeLayout
+        <ListView
+            android:id="@+id/listViewRequests"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="wrap_content"
+            android:divider="@color/greyBackground"
+            android:dividerHeight="12dp"
+            android:paddingHorizontal="12dp"
+            android:scrollbars="none" />
 
-            <ListView
-                android:id="@+id/listViewRequests"
+        <RelativeLayout
+            android:id="@+id/toolbarBotoom"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true">
+
+            <include
+                layout="@layout/toolbar_layout"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:divider="@color/greyBackground"
-                android:dividerHeight="12dp"
-                android:paddingHorizontal="12dp"
-                android:scrollbars="none" />
-
-            <RelativeLayout
-                android:id="@+id/toolbarBotoom"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_alignParentBottom="true">
-
-                <include
-                    layout="@layout/toolbar_layout"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content" />
-            </RelativeLayout>
+                android:layout_height="wrap_content" />
         </RelativeLayout>
-    </LinearLayout>
+    </RelativeLayout>
 </RelativeLayout>

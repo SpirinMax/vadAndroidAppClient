@@ -136,6 +136,7 @@ public class RequestCreationStageActivity extends AppCompatActivity implements T
                 new DatePickerDialog(thisContext, new DatePickerDialog.OnDateSetListener() {
                     @Override
                     public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
+                        //month+1 нужен только в datePickerDialog!!
                         String m = String.valueOf(month + 1);
                         String day = String.valueOf(dayOfMonth);
                         String y = String.valueOf(year);
@@ -178,32 +179,36 @@ public class RequestCreationStageActivity extends AppCompatActivity implements T
         LinearLayout containerAdresRequest = findViewById(R.id.containerAdresRequest);
         LinearLayout containerDateRequest = findViewById(R.id.containerDateRequest);
         LinearLayout containerTimeRequest = findViewById(R.id.containerTimeRequest);
-        if (UiRegistration.checkOfNull(containerNameRequest, thisContext)) {
-            if (UiRegistration.checkOfNull(containerAdresRequest, thisContext)) {
-                if (UiRegistration.checkOfNull(containerDateRequest, thisContext)) {
-                    if (UiRegistration.checkOfNull(containerTimeRequest, thisContext)) {
-                        fillRequestForHelp(requestForHelp);
-                        Call<RequestForHelp> requestDataCall = ApiClient.getUserService().createRequestForHelp(requestForHelp);
-                        requestDataCall.enqueue(new Callback<RequestForHelp>() {
-                            @Override
-                            public void onResponse(Call<RequestForHelp> call, Response<RequestForHelp> response) {
-                                int serverStatusCode = response.code();
-                                if (response.isSuccessful()) {
-                                    Toast.makeText(thisContext, "Заявка успешно создана!", Toast.LENGTH_LONG).show();
-                                    behaviorActivity.goInActivity(StartActivity.class);
-                                } else {
-                                    serverError.handleError(serverStatusCode, behaviorActivity);
+        if (typeRequest != "") {
+            if (UiRegistration.checkOfNull(containerNameRequest, thisContext)) {
+                if (UiRegistration.checkOfNull(containerAdresRequest, thisContext)) {
+                    if (UiRegistration.checkOfNull(containerDateRequest, thisContext)) {
+                        if (UiRegistration.checkOfNull(containerTimeRequest, thisContext)) {
+                            fillRequestForHelp(requestForHelp);
+                            Call<RequestForHelp> requestDataCall = ApiClient.getUserService().createRequestForHelp(requestForHelp);
+                            requestDataCall.enqueue(new Callback<RequestForHelp>() {
+                                @Override
+                                public void onResponse(Call<RequestForHelp> call, Response<RequestForHelp> response) {
+                                    int serverStatusCode = response.code();
+                                    if (response.isSuccessful()) {
+                                        Toast.makeText(thisContext, "Заявка успешно создана!", Toast.LENGTH_LONG).show();
+                                        behaviorActivity.goInActivity(StartActivity.class);
+                                    } else {
+                                        serverError.handleError(serverStatusCode, behaviorActivity);
+                                    }
                                 }
-                            }
 
-                            @Override
-                            public void onFailure(Call<RequestForHelp> call, Throwable t) {
-                                ServerError.DisplayDialogLossConnection(thisContext, fragmentManager);
-                            }
-                        });
+                                @Override
+                                public void onFailure(Call<RequestForHelp> call, Throwable t) {
+                                    ServerError.DisplayDialogLossConnection(thisContext, fragmentManager);
+                                }
+                            });
+                        }
                     }
                 }
             }
+        } else {
+            Toast.makeText(thisContext, "Не выбран тип заявки!", Toast.LENGTH_LONG).show();
         }
     }
 
@@ -242,33 +247,29 @@ public class RequestCreationStageActivity extends AppCompatActivity implements T
     }
 
     private void fillRequestForHelp(RequestForHelp requestForHelp) throws ParseException {
-        if (typeRequest != "") {
-            String name = ((EditText) findViewById(R.id.nameRequest)).getText().toString();
-            String type = typeRequest;
-            String region = ((EditText) findViewById(R.id.regionRequest)).getText().toString();
-            String district = ((EditText) findViewById(R.id.districtRequest)).getText().toString();
-            String city = ((EditText) findViewById(R.id.cityRequest)).getText().toString();
-            String street = ((EditText) findViewById(R.id.streetRequest)).getText().toString();
-            String houseNumber = ((EditText) findViewById(R.id.houseRequest)).getText().toString();
-            Calendar startDateTime = receiveStartDateFromEditText(editTextDate, editTextTime);
-            Calendar creationDateTime = Calendar.getInstance();
-            String description = ((EditText) findViewById(R.id.descriptionRequest)).getText().toString();
+        String name = ((EditText) findViewById(R.id.nameRequest)).getText().toString();
+        String type = typeRequest;
+        String region = ((EditText) findViewById(R.id.regionRequest)).getText().toString();
+        String district = ((EditText) findViewById(R.id.districtRequest)).getText().toString();
+        String city = ((EditText) findViewById(R.id.cityRequest)).getText().toString();
+        String street = ((EditText) findViewById(R.id.streetRequest)).getText().toString();
+        String houseNumber = ((EditText) findViewById(R.id.houseRequest)).getText().toString();
+        Calendar startDateTime = receiveStartDateFromEditText(editTextDate, editTextTime);
+        Calendar creationDateTime = Calendar.getInstance();
+        String description = ((EditText) findViewById(R.id.descriptionRequest)).getText().toString();
 
-            requestForHelp.setAuthorUser(userData);
-            requestForHelp.setName(name);
-            requestForHelp.setType(type);
-            requestForHelp.setRegion(region);
-            requestForHelp.setDistrict(district);
-            requestForHelp.setCity(city);
-            requestForHelp.setStreet(street);
-            requestForHelp.setHouseNumber(houseNumber);
-            requestForHelp.setStartDate(startDateTime);
-            requestForHelp.setCreationDate(creationDateTime);
-            requestForHelp.setDescription(description);
+        requestForHelp.setAuthorUser(userData);
+        requestForHelp.setName(name);
+        requestForHelp.setType(type);
+        requestForHelp.setRegion(region);
+        requestForHelp.setDistrict(district);
+        requestForHelp.setCity(city);
+        requestForHelp.setStreet(street);
+        requestForHelp.setHouseNumber(houseNumber);
+        requestForHelp.setStartDate(startDateTime);
+        requestForHelp.setCreationDate(creationDateTime);
+        requestForHelp.setDescription(description);
 
-        } else {
-            Toast.makeText(thisContext, "Не выбран тип заявки!", Toast.LENGTH_LONG).show();
-        }
     }
 
     private Calendar receiveStartDateFromEditText(EditText editTextStartDate, EditText editTextTimeStart) throws ParseException {
@@ -279,7 +280,7 @@ public class RequestCreationStageActivity extends AppCompatActivity implements T
         SimpleDateFormat sdf = new SimpleDateFormat("dd.MM.y HH:mm");
         startDate.setTime(sdf.parse(dateTimeString));
         int y = startDate.get(Calendar.YEAR);
-        int m = startDate.get(Calendar.MONTH) + 1;
+        int m = startDate.get(Calendar.MONTH);
         int day = startDate.get(Calendar.DAY_OF_MONTH);
         int h = startDate.get(Calendar.HOUR_OF_DAY);
         int mun = startDate.get(Calendar.MINUTE);

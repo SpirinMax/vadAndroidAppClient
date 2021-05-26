@@ -47,7 +47,7 @@
                         android:id="@+id/nameRequest"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:inputType="textPersonName"
+                        android:inputType="text"
                         android:windowSoftInputMode="stateHidden" />
                 </com.google.android.material.textfield.TextInputLayout>
 
@@ -115,7 +115,7 @@
                         android:id="@+id/regionRequest"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:inputType="textPersonName"
+                        android:inputType="text"
                         android:text="Нижегородская" />
                 </com.google.android.material.textfield.TextInputLayout>
 
@@ -132,7 +132,7 @@
                         android:id="@+id/districtRequest"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:inputType="textPersonName"
+                        android:inputType="text"
                         android:text="Вадский" />
                 </com.google.android.material.textfield.TextInputLayout>
 
@@ -149,7 +149,7 @@
                         android:id="@+id/cityRequest"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:inputType="textMultiLine" />
+                        android:inputType="text" />
                 </com.google.android.material.textfield.TextInputLayout>
 
                 <com.google.android.material.textfield.TextInputLayout
@@ -165,7 +165,7 @@
                         android:id="@+id/streetRequest"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:inputType="textMultiLine" />
+                        android:inputType="text" />
                 </com.google.android.material.textfield.TextInputLayout>
 
                 <com.google.android.material.textfield.TextInputLayout
@@ -181,7 +181,7 @@
                         android:id="@+id/houseRequest"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:inputType="textMultiLine" />
+                        android:inputType="text" />
                 </com.google.android.material.textfield.TextInputLayout>
             </LinearLayout>
 
@@ -300,5 +300,5 @@
         android:layout_marginTop="8dp"
         android:layout_marginBottom="150dp"
         android:onClick="sendDataToCreateRequest"
-        android:text="@string/editProfileUser" />
+        android:text="Создать заявку" />
 </LinearLayout>

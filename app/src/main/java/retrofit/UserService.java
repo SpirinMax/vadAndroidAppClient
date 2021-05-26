@@ -2,6 +2,7 @@ package retrofit;
 
 import java.util.List;
 
+import entites.ParametersRequestForQuest;
 import entites.RequestForHelp;
 import entites.User;
 import retrofit2.Call;
@@ -31,6 +32,14 @@ public interface UserService {
     Call<RequestForHelp> becomeParticipant(@Query("idPart") int idPart, @Query("idRequest") int idRequest);
 
     @GET("DeletingParticipantServlet")
-    Call<RequestForHelp> cancelParticipationInrequest(@Query("idPart") int idPart, @Query("idRequest") int idRequest);
+    Call<RequestForHelp> cancelParticipationInRequest(@Query("idPart") int idPart, @Query("idRequest") int idRequest);
 
+    @GET("ReceivingRequestsForParticipantsServlet")
+    Call<List<RequestForHelp>> receiveRequestsForParticipant(@Query("idPart") int idPart);
+
+    @GET("ReceivingRequestsForAuthorServlet")
+    Call<List<RequestForHelp>> receiveRequestsForAuthor(@Query("idAuthor") int idAuthor);
+
+    @POST("QuestRequestsForParametersServlet")
+    Call<List<RequestForHelp>> findRequestByParameters(@Body ParametersRequestForQuest parametersQuest);
 }

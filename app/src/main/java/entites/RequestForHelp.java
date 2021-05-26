@@ -20,6 +20,7 @@ public class RequestForHelp implements Serializable {
     private Calendar startDate;
     private String description;
     private Set<User> participants = new HashSet<User>();
+    private Set<PhotoReport> photoReports = new HashSet<PhotoReport>();
 
     public RequestForHelp() {
 
@@ -123,5 +124,13 @@ public class RequestForHelp implements Serializable {
 
     public void setParticipants(Set<User> participants) {
         this.participants = participants;
+    }
+
+    public Set<PhotoReport> getPhotoReports() {
+        return photoReports;
+    }
+
+    public void setPhotoReports(Set<PhotoReport> photoReports) {
+        this.photoReports = photoReports;
     }
 }

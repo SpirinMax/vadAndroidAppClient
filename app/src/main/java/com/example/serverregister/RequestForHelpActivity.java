@@ -85,7 +85,7 @@ public class RequestForHelpActivity extends AppCompatActivity {
                 }
             });
         } else if (!checkOwnerInListParticipants()) {
-            Call<RequestForHelp> deleteParticipantCall = ApiClient.getUserService().cancelParticipationInrequest(idOwner, idRequest);
+            Call<RequestForHelp> deleteParticipantCall = ApiClient.getUserService().cancelParticipationInRequest(idOwner, idRequest);
             deleteParticipantCall.enqueue(new Callback<RequestForHelp>() {
                 @Override
                 public void onResponse(Call<RequestForHelp> call, Response<RequestForHelp> response) {
