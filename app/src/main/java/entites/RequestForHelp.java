@@ -2,7 +2,6 @@ package entites;
 
 import java.io.Serializable;
 import java.util.Calendar;
-import java.util.HashSet;
 import java.util.Set;
 
 public class RequestForHelp implements Serializable {
@@ -19,8 +18,8 @@ public class RequestForHelp implements Serializable {
     private Calendar creationDate;
     private Calendar startDate;
     private String description;
-    private Set<User> participants = new HashSet<User>();
-    private Set<PhotoReport> photoReports = new HashSet<PhotoReport>();
+    private Set<User> participants;
+    private Set<PhotoReport> photoReports;
 
     public RequestForHelp() {
 

@@ -1,16 +1,21 @@
 package entites;
 
-public class ImagePhotoReport {
-    private int numberPhoto;
+import java.io.Serializable;
+
+public class ImagePhotoReport implements Serializable {
+    private int id;
     private int idPhotoReport;
     private byte[] image;
 
-    public int getNumberPhoto() {
-        return numberPhoto;
+    public ImagePhotoReport(byte[] image) {
+        this.image = image;
     }
 
-    public void setNumberPhoto(int numberPhoto) {
-        this.numberPhoto = numberPhoto;
+    public int getId() {
+        return id;
+    }
+
+    public ImagePhotoReport() {
     }
 
     public int getIdPhotoReport() {

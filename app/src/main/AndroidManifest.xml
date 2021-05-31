@@ -17,8 +17,16 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.ServerRegister"
         android:usesCleartextTraffic="true">
-        <activity android:name=".QuestByParametersActivity"></activity>
-        <activity android:name=".RequestForHelpActivity" />
+        <activity android:name=".PhotoReportCreatingActivity"></activity>
+        <activity android:name=".QuestByParametersActivity" />
+        <activity android:name=".RequestForHelpActivity">
+            <intent-filter>
+                <action android:name="luminous.ACTION_PICK" />
+                <action android:name="luminous.ACTION_MULTIPLE_PICK" />
+
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
+        </activity>
         <activity android:name=".UnsuccessfulAythenticationActivity" />
         <activity
             android:name=".RequestCreationStageActivity"

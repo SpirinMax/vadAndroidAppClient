@@ -1,15 +1,24 @@
 package entites;
 
+import java.io.Serializable;
 import java.util.Calendar;
-import java.util.HashSet;
 import java.util.Set;
 
-public class PhotoReport {
+public class PhotoReport implements Serializable {
     private int id;
     private User authorReport;
     private String name;
-    private Set<ImagePhotoReport> images = new HashSet<ImagePhotoReport>();
+    private String description;
+    private Set<ImagePhotoReport> images;
     private Calendar creationDate;
+
+    public PhotoReport(Set<ImagePhotoReport> images) {
+        this.images = images;
+    }
+
+    public PhotoReport() {
+
+    }
 
     public int getId() {
         return id;
@@ -29,6 +38,14 @@ public class PhotoReport {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
     }
 
     public Set<ImagePhotoReport> getImages() {

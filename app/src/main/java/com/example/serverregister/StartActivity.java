@@ -28,7 +28,7 @@ import retrofit2.Callback;
 import retrofit2.Response;
 import ui.TransitIconToolbar;
 import ui.errorsServer.RefreshInActivity;
-import ui.listview_adapters.RequestsForHelpAdapter;
+import ui.adapters.RequestsForHelpAdapter;
 import ui.registration.TransitToRegistration;
 
 public class StartActivity extends AppCompatActivity implements RefreshInActivity, TransitToRegistration, TransitIconToolbar {
@@ -213,6 +213,7 @@ public class StartActivity extends AppCompatActivity implements RefreshInActivit
             @Override
             public void onFailure(Call<List<RequestForHelp>> call, Throwable t) {
                 ServerError.DisplayDialogLossConnection(thisContext, fragmentManager);
+                t.printStackTrace();
             }
         });
     }

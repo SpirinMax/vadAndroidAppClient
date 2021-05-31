@@ -1,20 +1,17 @@
 package com.example.serverregister;
 
 import android.content.Context;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
+import android.content.Intent;
 import android.os.Bundle;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ListView;
 import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.FragmentManager;
-
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Set;
 
 import entites.RequestForHelp;
 import entites.User;
@@ -23,20 +20,20 @@ import retrofit.ServerError;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
-import service.UserService;
-import ui.listview_adapters.ParticipantRequest;
-import ui.listview_adapters.ParticipantRequestAdapter;
+import service.RequestForHelpService;
 
 public class RequestForHelpActivity extends AppCompatActivity {
     private FragmentManager fragmentManager;
     private Context thisContext;
+    private View thisView;
     private BehaviorActivity behaviorActivity;
     private final ServerError serverError = new ServerError();
-    private SharedPreferencesUserInfo sharedPreferencesUserInfo = new SharedPreferencesUserInfo();
+    private final SharedPreferencesUserInfo sharedPreferencesUserInfo = new SharedPreferencesUserInfo();
 
     private ListView listParticipants;
-    RequestForHelp requestForHelp = new RequestForHelp();
+    private RequestForHelp requestForHelp = new RequestForHelp();
     private User owner;
+    RequestForHelpService baseRequestService;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -51,16 +48,20 @@ public class RequestForHelpActivity extends AppCompatActivity {
 
         Bundle selectedRequestForHelp = getIntent().getExtras();
         requestForHelp = (RequestForHelp) selectedRequestForHelp.getSerializable(RequestForHelp.class.getSimpleName());
-        fillTextFields(requestForHelp);
+
+        ViewGroup parent = (ViewGroup) findViewById(R.id.groupElementsRequest);
+        thisView = LayoutInflater.from(this).inflate(R.layout.activity_request_for_help, parent, true);
+        baseRequestService = new RequestForHelpService(requestForHelp);
+        baseRequestService.fillTextFields(thisView, listParticipants);
+
         owner = sharedPreferencesUserInfo.getSavedSettings(thisContext);
         checkOwnerForParticipation();
-
     }
 
     public void participateInRequest(View view) {
         int idOwner = owner.getId();
         int idRequest = requestForHelp.getId();
-        if (checkOwnerInAuthorRequest() && checkOwnerInListParticipants()) {
+        if (baseRequestService.checkOwnerInAuthorRequest(owner) && baseRequestService.checkOwnerInListParticipants(owner)) {
             Call<RequestForHelp> newParticipantCall = ApiClient.getUserService().becomeParticipant(idOwner, idRequest);
             newParticipantCall.enqueue(new Callback<RequestForHelp>() {
                 @Override
@@ -69,7 +70,8 @@ public class RequestForHelpActivity extends AppCompatActivity {
                     if (response.isSuccessful()) {
                         RequestForHelp editedRequest = response.body();
                         requestForHelp = editedRequest;
-                        fillTextFields(editedRequest);
+                        baseRequestService = new RequestForHelpService(editedRequest);
+                        baseRequestService.fillTextFields(thisView, listParticipants);
                         checkOwnerForParticipation();
 
                         behaviorActivity.goInActivity(StartActivity.class);
@@ -84,7 +86,7 @@ public class RequestForHelpActivity extends AppCompatActivity {
                     ServerError.DisplayDialogLossConnection(thisContext, fragmentManager);
                 }
             });
-        } else if (!checkOwnerInListParticipants()) {
+        } else if (!baseRequestService.checkOwnerInListParticipants(owner)) {
             Call<RequestForHelp> deleteParticipantCall = ApiClient.getUserService().cancelParticipationInRequest(idOwner, idRequest);
             deleteParticipantCall.enqueue(new Callback<RequestForHelp>() {
                 @Override
@@ -93,7 +95,8 @@ public class RequestForHelpActivity extends AppCompatActivity {
                     if (response.isSuccessful()) {
                         RequestForHelp editedRequest = response.body();
                         requestForHelp = editedRequest;
-                        fillTextFields(editedRequest);
+                        baseRequestService = new RequestForHelpService(editedRequest);
+                        baseRequestService.fillTextFields(thisView, listParticipants);
                         checkOwnerForParticipation();
                     } else {
                         serverError.handleError(serverStatusCode, behaviorActivity);
@@ -108,99 +111,28 @@ public class RequestForHelpActivity extends AppCompatActivity {
         }
     }
 
+    public void choosePhotoForPhotoReport(View view) {
+        Intent photoReportIntent = new Intent(thisContext, PhotoReportCreatingActivity.class);
+        behaviorActivity.sendDataInActivity(photoReportIntent, RequestForHelp.class.getSimpleName(), requestForHelp);
+    }
+
     private void checkOwnerForParticipation() {
         Button buttonParticipant = findViewById(R.id.buttonParticipant);
         TextView labelAfterButton = findViewById(R.id.labelAfterButton);
 
-        if (!checkOwnerInAuthorRequest()) {
+        if (!baseRequestService.checkOwnerInAuthorRequest(owner)) {
             buttonParticipant.setBackgroundColor(getResources().getColor(R.color.white_red));
             labelAfterButton.setText("Вы автор заявки!");
-        } else if (!checkOwnerInListParticipants()) {
+        } else if (!baseRequestService.checkOwnerInListParticipants(owner)) {
             buttonParticipant.setBackgroundColor(getResources().getColor(R.color.white_red));
             buttonParticipant.setText("Отменить участие");
             labelAfterButton.setText("Вы уже участник заявки!");
-        } else if (checkOwnerInAuthorRequest() && checkOwnerInListParticipants()) {
+        } else if (baseRequestService.checkOwnerInAuthorRequest(owner) && baseRequestService.checkOwnerInListParticipants(owner)) {
             buttonParticipant.setBackgroundColor(getResources().getColor(R.color.white_green));
             buttonParticipant.setText("Принять участие");
             labelAfterButton.setText("");
         }
 
-    }
-
-    private Boolean checkOwnerInAuthorRequest() {
-        int idOwner = owner.getId();
-        int idAuthorRequest = requestForHelp.getAuthorUser().getId();
-        if (idOwner == idAuthorRequest) {
-            return false;
-        } else {
-            return true;
-        }
-    }
-
-    private Boolean checkOwnerInListParticipants() {
-        int idOwner = owner.getId();
-        List<User> participants = new ArrayList<>(requestForHelp.getParticipants());
-        byte count = 0;
-        for (byte i = 0; i < participants.size(); i++) {
-            int idPart = participants.get(i).getId();
-            if (idOwner == idPart) {
-                break;
-            } else {
-                count++;
-            }
-        }
-
-        if (count == participants.size()) {
-            return true;
-        } else {
-            return false;
-        }
-    }
-
-    private void fillTextFields(RequestForHelp requestForHelp) {
-        TextView nameRequest, cityInRequest, streetInRequest, houseInRequest, dateAndTimeRequest, descriptionRequest, countParticipants;
-        nameRequest = findViewById(R.id.nameRequest);
-        cityInRequest = findViewById(R.id.cityInRequest);
-        streetInRequest = findViewById(R.id.streetInRequest);
-        houseInRequest = findViewById(R.id.houseInRequest);
-        dateAndTimeRequest = findViewById(R.id.dateAndTimeRequest);
-        descriptionRequest = findViewById(R.id.descriptionRequest);
-        countParticipants = findViewById(R.id.countParticipants);
-
-        nameRequest.setText(requestForHelp.getName());
-        cityInRequest.setText(requestForHelp.getCity() + ",");
-        streetInRequest.setText(requestForHelp.getStreet() + ",");
-        houseInRequest.setText(requestForHelp.getHouseNumber());
-        dateAndTimeRequest.setText(UserService.receiveStringDateTime(requestForHelp.getStartDate()));
-        descriptionRequest.setText(requestForHelp.getDescription());
-        countParticipants.setText("(" + UserService.receiveCountParticipants(requestForHelp.getParticipants()) + " чел.)");
-        fillParticipantsInRequest(requestForHelp.getParticipants());
-    }
-
-    private void fillParticipantsInRequest(Set<User> participants) {
-        if (participants.size() != 0) {
-            List<User> listPartFromRequest = new ArrayList<User>(participants);
-            List<ParticipantRequest> listPart = new ArrayList<ParticipantRequest>();
-            for (int i = 0; i < listPartFromRequest.size(); i++) {
-                Bitmap imagePart = BitmapFactory.decodeResource(getResources(), R.drawable.empty_image);
-                if (listPartFromRequest.get(i).getPhoto() != null) {
-                    byte[] photo = listPartFromRequest.get(i).getPhoto();
-                    imagePart = BitmapFactory.decodeByteArray(photo, 0, photo.length);
-                }
-                String surname = listPartFromRequest.get(i).getFirstname();
-                String name = listPartFromRequest.get(i).getLastname();
-                ParticipantRequest participant = new ParticipantRequest(imagePart, name, surname);
-                listPart.add(participant);
-            }
-            ParticipantRequestAdapter participantRequestAdapter =
-                    new ParticipantRequestAdapter(thisContext, R.layout.participants_listview_layout, listPart);
-            listParticipants.setAdapter(participantRequestAdapter);
-        } else {
-            List<ParticipantRequest> listPart = new ArrayList<ParticipantRequest>();
-            ParticipantRequestAdapter participantRequestAdapter =
-                    new ParticipantRequestAdapter(thisContext, R.layout.participants_listview_layout, listPart);
-            listParticipants.setAdapter(participantRequestAdapter);
-        }
     }
 
 }

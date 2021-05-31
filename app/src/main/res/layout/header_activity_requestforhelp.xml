@@ -1,0 +1,159 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/greyBackground"
+    tools:context=".RequestForHelpActivity">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="10dp">
+
+        <TextView
+            android:id="@+id/nameRequest"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentTop="true"
+            android:layout_centerHorizontal="true"
+            android:layout_marginVertical="10dp"
+            android:text="Название заявки"
+            android:textAlignment="center"
+            android:textColor="@color/black"
+            android:textSize="18sp" />
+
+        <TextView
+            android:id="@+id/label1"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/nameRequest"
+            android:layout_marginBottom="5dp"
+            android:text="Требуется ваша помощь"
+            android:textColor="@color/black"
+            android:textSize="16sp"
+            android:textStyle="italic" />
+
+        <LinearLayout
+            android:id="@+id/address"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/label1"
+            android:layout_marginBottom="5dp"
+            android:orientation="horizontal">
+
+            <TextView
+                android:id="@+id/labelAddress"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="По адресу:  "
+                android:textSize="16sp"
+                android:textStyle="italic" />
+
+            <TextView
+                android:id="@+id/cityInRequest"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="5dp"
+                android:text="город"
+                android:textColor="@color/black"
+                android:textSize="16sp" />
+
+            <TextView
+                android:id="@+id/streetInRequest"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="5dp"
+                android:text="улица"
+                android:textColor="@color/black"
+                android:textSize="16sp" />
+
+            <TextView
+                android:id="@+id/houseInRequest"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="дом, номер"
+                android:textColor="@color/black"
+                android:textSize="16sp" />
+        </LinearLayout>
+
+        <TextView
+            android:id="@+id/dateAndTimeRequest"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/address"
+            android:layout_alignBaseline="@+id/labelDate"
+            android:text="Дата, время"
+            android:textColor="@color/black"
+            android:textSize="16sp" />
+
+        <TextView
+            android:id="@+id/label2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/dateAndTimeRequest"
+            android:layout_marginTop="10dp"
+            android:layout_marginBottom="5dp"
+            android:text="Что нужно сделать?"
+            android:textSize="16sp"
+            android:textStyle="italic" />
+
+        <TextView
+            android:id="@+id/descriptionRequest"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/label2"
+            android:layout_marginBottom="5dp"
+            android:text="Описание"
+            android:textColor="@color/black"
+            android:textSize="16sp" />
+
+        <Button
+            android:id="@+id/buttonParticipant"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/descriptionRequest"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="15dp"
+            android:onClick="participateInRequest"
+            android:text="Принять участие" />
+
+        <TextView
+            android:id="@+id/labelAfterButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/buttonParticipant"
+            android:layout_centerHorizontal="true"
+            android:layout_marginBottom="8dp" />
+
+        <Button
+            android:id="@+id/buttonPhotoReport"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/labelAfterButton"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="5dp"
+            android:text="Сделать фотоотчет" />
+
+        <TextView
+            android:id="@+id/labelPart"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/buttonPhotoReport"
+            android:layout_marginBottom="3dp"
+            android:text="Уже готовы помочь "
+            android:textSize="16sp"
+            android:textStyle="italic" />
+
+        <TextView
+            android:id="@+id/countParticipants"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignBaseline="@+id/labelPart"
+            android:layout_toEndOf="@+id/labelPart"
+            android:textColor="@color/black"
+            android:textSize="16sp"
+            android:textStyle="italic" />
+    </RelativeLayout>
+</RelativeLayout>

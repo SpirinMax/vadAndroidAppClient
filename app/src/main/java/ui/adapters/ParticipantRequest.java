@@ -1,4 +1,4 @@
-package ui.listview_adapters;
+package ui.adapters;
 
 import android.graphics.Bitmap;
 

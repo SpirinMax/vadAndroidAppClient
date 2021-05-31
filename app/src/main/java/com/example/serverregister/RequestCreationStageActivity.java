@@ -37,7 +37,7 @@ import retrofit2.Response;
 import service.UserService;
 import ui.TransitIconToolbar;
 import ui.errorsServer.RefreshInActivity;
-import ui.listview_adapters.TypeRequestsAdapter;
+import ui.adapters.TypeRequestsAdapter;
 import ui.registration.UiRegistration;
 
 public class RequestCreationStageActivity extends AppCompatActivity implements TransitIconToolbar, RefreshInActivity {
@@ -307,4 +307,5 @@ public class RequestCreationStageActivity extends AppCompatActivity implements T
         containerIcon.setBackgroundColor(resources.getColor(R.color.activeIcon));
         IconTextView.setTextColor(resources.getColor(R.color.red));
     }
+
 }

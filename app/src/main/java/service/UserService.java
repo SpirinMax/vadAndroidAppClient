@@ -3,26 +3,26 @@ package service;
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
-import android.graphics.Matrix;
-import android.media.ExifInterface;
-import android.net.Uri;
-import android.os.Build;
-import android.util.Log;
+import android.view.View;
+import android.widget.ListView;
+import android.widget.TextView;
 import android.widget.Toast;
 
-import androidx.annotation.RequiresApi;
-
 import com.example.serverregister.BehaviorActivity;
+import com.example.serverregister.R;
 import com.example.serverregister.SharedPreferencesUserInfo;
 
-import java.io.ByteArrayOutputStream;
-import java.io.IOException;
+import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.List;
 import java.util.Set;
 
+import entites.RequestForHelp;
 import entites.User;
 import retrofit.ServerError;
 import retrofit2.Response;
+import ui.adapters.ParticipantRequest;
+import ui.adapters.ParticipantRequestAdapter;
 
 public class UserService {
     private SharedPreferencesUserInfo sharedPreferencesUserInfo = new SharedPreferencesUserInfo();
@@ -124,82 +124,6 @@ public class UserService {
         userRequest.setPassword(password);
     }
 
-    public byte[] receiveByteArrayUserPhoto(Bitmap userPhoto) {
-        ByteArrayOutputStream imageStream = null;
-        byte[] byteUserPhoto = {0};
-        try {
-            imageStream = new ByteArrayOutputStream();
-            userPhoto.compress(Bitmap.CompressFormat.PNG, 100, imageStream);
-            byteUserPhoto = imageStream.toByteArray();
-            return byteUserPhoto;
-        } catch (Exception e) {
-            e.printStackTrace();
-        } finally {
-            if (imageStream != null) {
-                try {
-                    imageStream.close();
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
-            }
-        }
-        return byteUserPhoto;
-    }
-
-    public Bitmap receiveBitmapFromByteArray(byte[] byteImage) {
-        Bitmap bitmap = BitmapFactory.decodeByteArray(byteImage, 0, byteImage.length);
-        return bitmap;
-    }
-
-    @RequiresApi(api = Build.VERSION_CODES.N)
-    public Bitmap receiveEditedPhotoUser(Bitmap basePhotoUser, Uri UriSelectedImageInGallery, BehaviorActivity behaviorActivity) {
-        Bitmap reducedImage = reduceImage(basePhotoUser);
-        Bitmap finalImage = recieveRotatedImage(UriSelectedImageInGallery, reducedImage, behaviorActivity);
-        return finalImage;
-    }
-
-    private Bitmap reduceImage(Bitmap basicImage) {
-        int WIDTH_BITMAP = basicImage.getWidth() / 10;
-        int HEIGHT_BITMAP = basicImage.getHeight() / 10;
-        if (basicImage.getWidth() > 6000) {
-            WIDTH_BITMAP = basicImage.getWidth() / 30;
-            HEIGHT_BITMAP = basicImage.getHeight() / 30;
-        }
-        Bitmap reducedImage = Bitmap.createScaledBitmap(basicImage, WIDTH_BITMAP, HEIGHT_BITMAP, false);
-        return reducedImage;
-    }
-
-    @RequiresApi(api = Build.VERSION_CODES.N)
-    private Bitmap recieveRotatedImage(Uri selectedImageInGallery, Bitmap noRotatedBitmap, BehaviorActivity behaviorActivity) {
-        Context context = behaviorActivity.receiveContext();
-        try {
-            ExifInterface exifInterface = new ExifInterface(context.getContentResolver().openInputStream(selectedImageInGallery));
-            int rotation = exifInterface.getAttributeInt(ExifInterface.TAG_ORIENTATION, ExifInterface.ORIENTATION_NORMAL);
-            int rotationInDegrees = exifToDegrees(rotation);
-            Matrix matrix = new Matrix();
-            if (rotation != 0f) {
-                matrix.setRotate(rotationInDegrees);
-                Bitmap finalBitmap = Bitmap.createBitmap(noRotatedBitmap, 0, 0, noRotatedBitmap.getWidth(), noRotatedBitmap.getHeight(), matrix, true);
-                return finalBitmap;
-            }
-        } catch (IOException ex) {
-            Log.e("LOG EXIF", "Failed to get Exif data", ex);
-            Toast.makeText(context, "Не удалось перевернуть картинку", Toast.LENGTH_SHORT).show();
-        }
-        return noRotatedBitmap;
-    }
-
-    private static int exifToDegrees(int exifOrientation) {
-        if (exifOrientation == ExifInterface.ORIENTATION_ROTATE_90) {
-            return 90;
-        } else if (exifOrientation == ExifInterface.ORIENTATION_ROTATE_180) {
-            return 180;
-        } else if (exifOrientation == ExifInterface.ORIENTATION_ROTATE_270) {
-            return 270;
-        }
-        return 0;
-    }
-
     public static String receiveCountParticipants(Set<User> participants) {
         int count = participants.size();
         return String.valueOf(count);
@@ -207,7 +131,7 @@ public class UserService {
 
     public static String receiveStringDateTime(Calendar dateTime) {
         String y = String.valueOf(dateTime.get(Calendar.YEAR));
-        String m = convertIntMonthInString(dateTime.get(Calendar.MONTH) + 1);
+        String m = convertIntMonthInString(dateTime.get(Calendar.MONTH));
         String day = String.valueOf(dateTime.get(Calendar.DAY_OF_MONTH));
         String h = String.valueOf(dateTime.get(Calendar.HOUR_OF_DAY));
         String mun = String.valueOf(dateTime.get(Calendar.MINUTE));
@@ -243,5 +167,52 @@ public class UserService {
             monthStr = "декабря";
         }
         return monthStr;
+    }
+
+    public void fillTextFields(View view, RequestForHelp requestForHelp,ListView listParticipants){
+        TextView nameRequest, cityInRequest, streetInRequest, houseInRequest, dateAndTimeRequest, descriptionRequest, countParticipants;
+        nameRequest = view.findViewById(R.id.nameRequest);
+        cityInRequest = view.findViewById(R.id.cityInRequest);
+        streetInRequest = view.findViewById(R.id.streetInRequest);
+        houseInRequest = view.findViewById(R.id.houseInRequest);
+        dateAndTimeRequest = view.findViewById(R.id.dateAndTimeRequest);
+        descriptionRequest = view.findViewById(R.id.descriptionRequest);
+        countParticipants = view.findViewById(R.id.countParticipants);
+
+        nameRequest.setText(requestForHelp.getName());
+        cityInRequest.setText(requestForHelp.getCity() + ",");
+        streetInRequest.setText(requestForHelp.getStreet() + ",");
+        houseInRequest.setText(requestForHelp.getHouseNumber());
+        dateAndTimeRequest.setText(UserService.receiveStringDateTime(requestForHelp.getStartDate()));
+        descriptionRequest.setText(requestForHelp.getDescription());
+        countParticipants.setText("(" + receiveCountParticipants(requestForHelp.getParticipants()) + " чел.)");
+        fillParticipantsInRequest(view,requestForHelp.getParticipants(),listParticipants);
+    }
+
+    private void fillParticipantsInRequest(View view,Set<User> participants,ListView listParticipants) {
+        Context context = view.getContext();
+        if (participants.size() != 0) {
+            List<User> listPartFromRequest = new ArrayList<User>(participants);
+            List<ParticipantRequest> listPart = new ArrayList<ParticipantRequest>();
+            for (int i = 0; i < listPartFromRequest.size(); i++) {
+                Bitmap imagePart = BitmapFactory.decodeResource(view.getResources(), R.drawable.empty_image);
+                if (listPartFromRequest.get(i).getPhoto() != null) {
+                    byte[] photo = listPartFromRequest.get(i).getPhoto();
+                    imagePart = BitmapFactory.decodeByteArray(photo, 0, photo.length);
+                }
+                String surname = listPartFromRequest.get(i).getFirstname();
+                String name = listPartFromRequest.get(i).getLastname();
+                ParticipantRequest participant = new ParticipantRequest(imagePart, name, surname);
+                listPart.add(participant);
+            }
+            ParticipantRequestAdapter participantRequestAdapter =
+                    new ParticipantRequestAdapter(context, R.layout.participants_listview_layout, listPart);
+            listParticipants.setAdapter(participantRequestAdapter);
+        } else {
+            List<ParticipantRequest> listPart = new ArrayList<ParticipantRequest>();
+            ParticipantRequestAdapter participantRequestAdapter =
+                    new ParticipantRequestAdapter(context, R.layout.participants_listview_layout, listPart);
+            listParticipants.setAdapter(participantRequestAdapter);
+        }
     }
 }

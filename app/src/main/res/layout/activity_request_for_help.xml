@@ -5,7 +5,8 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/greyBackground"
-    tools:context=".RequestForHelpActivity">
+    tools:context=".RequestForHelpActivity"
+    android:id="@+id/groupElementsRequest">
 
     <androidx.cardview.widget.CardView
         android:layout_width="match_parent"
@@ -47,13 +48,14 @@
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/label1"
                 android:layout_marginBottom="5dp"
-                android:orientation="horizontal">
+                android:orientation="horizontal"
+                android:textAlignment="textStart">
 
                 <TextView
                     android:id="@+id/labelAddress"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="По адресу:  "
+                    android:text="По адресу: "
                     android:textSize="16sp"
                     android:textStyle="italic" />
 
@@ -63,6 +65,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginEnd="5dp"
                     android:text="город"
+                    android:textAlignment="textStart"
                     android:textColor="@color/black"
                     android:textSize="16sp" />
 
@@ -72,6 +75,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginEnd="5dp"
                     android:text="улица"
+                    android:textAlignment="textStart"
                     android:textColor="@color/black"
                     android:textSize="16sp" />
 
@@ -80,6 +84,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="дом, номер"
+                    android:textAlignment="textStart"
                     android:textColor="@color/black"
                     android:textSize="16sp" />
             </LinearLayout>
@@ -131,13 +136,24 @@
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/buttonParticipant"
                 android:layout_centerHorizontal="true"
-                android:layout_marginBottom="12dp" />
+                android:layout_marginBottom="8dp" />
+
+            <Button
+                android:id="@+id/buttonPhotoReport"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/labelAfterButton"
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="5dp"
+                android:onClick="choosePhotoForPhotoReport"
+                android:text="Сделать фотоотчет" />
 
             <TextView
                 android:id="@+id/labelPart"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_below="@+id/labelAfterButton"
+                android:layout_below="@+id/buttonPhotoReport"
+                android:layout_marginBottom="3dp"
                 android:text="Уже готовы помочь "
                 android:textSize="16sp"
                 android:textStyle="italic" />
@@ -146,28 +162,32 @@
                 android:id="@+id/countParticipants"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_below="@+id/buttonParticipant"
                 android:layout_alignBaseline="@+id/labelPart"
+                android:layout_centerHorizontal="true"
+                android:layout_marginBottom="8dp"
+
                 android:layout_toEndOf="@+id/labelPart"
-                android:text="(n чел.)"
                 android:textColor="@color/black"
-                android:textSize="16sp"
-                android:textStyle="italic" />
+                android:textSize="16sp" />
 
             <RelativeLayout
+                android:id="@+id/listview_participants_container"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="174dp"
                 android:layout_below="@+id/labelPart">
 
                 <ListView
                     android:id="@+id/listViewParticipantsRequest"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:divider="@color/greyBackground"
+                    android:divider="@color/white"
                     android:dividerHeight="8dp"
+                    android:overScrollMode="ifContentScrolls"
                     android:paddingHorizontal="12dp"
                     android:scrollbars="none" />
             </RelativeLayout>
+
         </RelativeLayout>
     </androidx.cardview.widget.CardView>
-
 </RelativeLayout>

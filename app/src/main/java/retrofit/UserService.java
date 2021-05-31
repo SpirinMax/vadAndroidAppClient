@@ -42,4 +42,8 @@ public interface UserService {
 
     @POST("QuestRequestsForParametersServlet")
     Call<List<RequestForHelp>> findRequestByParameters(@Body ParametersRequestForQuest parametersQuest);
+
+    @POST("CreatingPhotoReportServlet")
+    Call<RequestForHelp> createPhotoReport(@Body RequestForHelp requestForHelp);
+
 }

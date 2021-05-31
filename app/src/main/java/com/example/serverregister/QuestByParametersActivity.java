@@ -23,7 +23,7 @@ import java.util.List;
 import entites.ParametersRequestForQuest;
 import entites.TypeRequests;
 import retrofit.ServerError;
-import ui.listview_adapters.TypeRequestsAdapter;
+import ui.adapters.TypeRequestsAdapter;
 
 public class QuestByParametersActivity extends AppCompatActivity {
 

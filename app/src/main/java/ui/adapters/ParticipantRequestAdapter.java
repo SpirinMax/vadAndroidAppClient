@@ -1,4 +1,4 @@
-package ui.listview_adapters;
+package ui.adapters;
 
 import android.content.Context;
 import android.view.LayoutInflater;

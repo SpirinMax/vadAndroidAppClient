@@ -29,6 +29,7 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 import service.UserService;
+import ui.ProcessingImage;
 import ui.TransitIconToolbar;
 import ui.errorsServer.RefreshInActivity;
 import ui.registration.TransitToRegistration;
@@ -77,7 +78,7 @@ public class ProfileActivity extends AppCompatActivity implements RefreshInActiv
                         userData = userService.receiveUserData(response);
                         byte[] photoUserByte = userData.getPhoto();
                         if (photoUserByte != null) {
-                            Bitmap photoUserBitmap = userService.receiveBitmapFromByteArray(photoUserByte);
+                            Bitmap photoUserBitmap = ProcessingImage.receiveBitmapFromByteArray(photoUserByte);
                             imageViewPhotoUser.setImageBitmap(photoUserBitmap);
                         }
 
@@ -115,16 +116,16 @@ public class ProfileActivity extends AppCompatActivity implements RefreshInActiv
     protected void onActivityResult(int requestCode, int resultCode, Intent imageReturnedIntent) {
         super.onActivityResult(requestCode, resultCode, imageReturnedIntent);
 
-        Bitmap selectedImageInGallery = null;
         if (requestCode == GALLERY_REQUEST) {
             if (resultCode == RESULT_OK) {
                 Uri uriRequiredImage = imageReturnedIntent.getData();
                 try {
-                    selectedImageInGallery = MediaStore.Images.Media.getBitmap(getContentResolver(), uriRequiredImage);
-                    Bitmap editedPhotoUser = userService.receiveEditedPhotoUser(selectedImageInGallery, uriRequiredImage, behaviorActivity);
-                    imageViewPhotoUser.setImageBitmap(editedPhotoUser);
-                    byte[] photoUserInByteArray = userService.receiveByteArrayUserPhoto(editedPhotoUser);
-                    dataRequestUpdateProfile.setPhoto(photoUserInByteArray);
+                    Bitmap selectedImageInGallery = MediaStore.Images.Media.getBitmap(getContentResolver(), uriRequiredImage);
+                    selectedImageInGallery = ProcessingImage.decodeSampledBitmap(uriRequiredImage, 100, 100, thisContext);
+                    selectedImageInGallery = ProcessingImage.receiveRotatedImage(uriRequiredImage, selectedImageInGallery, thisContext);
+                    byte[] byteImage = ProcessingImage.receiveByteArrayUserPhoto(selectedImageInGallery,75);
+                    imageViewPhotoUser.setImageBitmap(ProcessingImage.receiveBitmapFromByteArray(byteImage));
+                    dataRequestUpdateProfile.setPhoto(byteImage);
                 } catch (IOException e) {
                     Toast.makeText(thisContext, "Не удалось загрузить картинку из галереи", Toast.LENGTH_SHORT).show();
                 }
